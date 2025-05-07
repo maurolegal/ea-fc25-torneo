@@ -1,1 +1,135 @@
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo EA SPORT FC 25 | Champions League 2025</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <img src="assets/images/logo.svg" alt="EA SPORT FC 25" class="logo">
+        <h1>Torneo <span class="highlight">Champions League</span> 2025</h1>
+        <p>Demuestra tus habilidades y compite por el título del mejor jugador de EA SPORT FC 25</p>
+    </header>
+    
+    <div class="container">
+        <div class="grid">
+            <div class="section">
+                <h2>Información del Torneo</h2>
+                <p>Participa en nuestro emocionante torneo de EA SPORT FC 25 con los 32 equipos de la Champions League 2025.</p>
+                
+                <h3>Premios</h3>
+                <ul>
+                    <li>1er lugar: $2,000,000 + Trofeo</li>
+                    <li>2do lugar: $1,000,000</li>
+                    <li>3er lugar: $500,000</li>
+                </ul>
+                
+                <h3>Fechas importantes</h3>
+                <ul>
+                    <li>Inscripciones: Hasta el 30 de noviembre</li>
+                    <li>Fase de grupos: 5-7 de diciembre</li>
+                    <li>Eliminatorias: 12-14 de diciembre</li>
+                    <li>Final: 20 de diciembre</li>
+                </ul>
+                
+                <div class="payment-methods">
+                    <h3>Métodos de pago</h3>
+                    <div class="payment-method">
+                        <h4>🏦💛 BANCOLOMBIA</h4>
+                        <p>📲 Ahorro a la Mano</p>
+                        <p>🔢 19700032186</p>
+                        <p>👤 ken**oso**per</p>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <h4>🏦💙 BANCO BBVA</h4>
+                        <p>🔢 940424419</p>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>🪪 Cédula: 1.065.637.548</p>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <h4>📲💜 NEQUI</h4>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>📞 3045528042</p>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <h4>📲❤️ DAVIPLATA</h4>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>📞 3045528042</p>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <h4>💻💳 PAGO EN LÍNEA (PSE / TARJETA DE CRÉDITO)</h4>
+                        <p>🌐 👉 <a href="https://acortar.link/Me2BXq" target="_blank">https://acortar.link/Me2BXq</a></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Formulario de Inscripción</h2>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName">Nombre y Apellido</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Teléfono / WhatsApp</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="team">Equipo a Elegir</label>
+                        <select id="team" name="team" required>
+                            <option value="">Selecciona tu equipo</option>
+                        </select>
+                        
+                        <div class="team-grid" id="teamGrid"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="paymentMethod">Método de Pago</label>
+                        <select id="paymentMethod" name="paymentMethod" required>
+                            <option value="">Selecciona método de pago</option>
+                            <option value="Bancolombia">Bancolombia</option>
+                            <option value="BBVA">BBVA</option>
+                            <option value="Nequi">Nequi</option>
+                            <option value="Daviplata">Daviplata</option>
+                            <option value="Pago en línea">Pago en línea (PSE/Tarjeta)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="paymentReference">Referencia de Pago</label>
+                        <input type="text" id="paymentReference" name="paymentReference" required>
+                        <p class="note">Ingresa el número de referencia o comprobante de tu pago</p>
+                    </div>
+                    
+                    <button type="submit">Inscribirse al Torneo</button>
+                    
+                    <div class="success-message" id="successMessage">
+                        ¡Inscripción exitosa! Te hemos enviado un correo de confirmación.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Torneo EA SPORT FC 25 - Champions League 2025</p>
+        <p>© 2025 Todos los derechos reservados</p>
+    </footer>
+    
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
