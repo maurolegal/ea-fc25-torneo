@@ -1,1 +1,29 @@
+# Torneo EA SPORT FC 25 - Champions League 2025
 
+Landing page para el torneo oficial de EA SPORT FC 25 con los 32 equipos de la Champions League 2025.
+
+## Características
+
+- Formulario de inscripción con validación
+- Selección de equipos con límite de 5 participantes por equipo
+- Diseño responsive para móviles y desktop
+- Sección de métodos de pago
+- Confirmación de inscripción
+
+## Tecnologías utilizadas
+
+- HTML5
+- CSS3
+- JavaScript Vanilla
+
+## Cómo contribuir
+
+1. Haz fork del proyecto
+2. Crea una rama con tu feature (`git checkout -b feature/AmazingFeature`)
+3. Haz commit de tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Haz push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## Licencia
+
+Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
