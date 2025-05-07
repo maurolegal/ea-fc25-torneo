@@ -1,0 +1,15 @@
+/ea-fc25-torneo
+│
+├── /assets
+│   ├── /css
+│   │   └── style.css
+│   ├── /js
+│   │   └── script.js
+│   └── /images
+│       ├── banner.jpg
+│       ├── logo.svg
+│       └── (logos de equipos)
+│
+├── index.html
+├── README.md
+└── LICENSE
