@@ -3,90 +3,573 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneo EA SPORT FC 25 | Champions League 2025</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Torneo EA FC 25 | Champions Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00fffc;
+            --secondary: #ff00f7;
+            --dark: #0c1020;
+            --light: #f0f8ff;
+            --accent: #ffcc00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oxanium', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            background: url('https://i.imgur.com/JVv8n0E.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 16, 32, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header estilo gamer */
+        header {
+            background: linear-gradient(135deg, rgba(0, 15, 30, 0.9) 0%, rgba(0, 0, 20, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 252, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+
+        .countdown {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid var(--accent);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #countdown-timer {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Hero Section con efecto neon */
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,255,252,0.1) 0%, rgba(0,0,0,0) 70%);
+            animation: pulse 8s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .hero h1 {
+            font-family: 'Russo One', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 252, 0.3);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 255, 252, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 252, 0.6);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Sección de equipos con grid responsive */
+        .teams-section {
+            padding: 60px 0;
+            background: rgba(5, 10, 25, 0.7);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(0, 255, 252, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 252, 0.2);
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .team-card {
+            background: rgba(10, 15, 40, 0.7);
+            border: 1px solid rgba(0, 255, 252, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 252, 0.2);
+            border-color: transparent;
+        }
+
+        .team-card:hover::before {
+            opacity: 1;
+        }
+
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 5px rgba(0, 255, 252, 0.5));
+        }
+
+        .team-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Formulario estilo futurista */
+        .registration-section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .registration-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.imgur.com/JVv8n0E.jpg') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Russo One', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .registration-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(10, 15, 40, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 252, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 252, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 252, 0.3);
+            border-radius: 5px;
+            color: var(--light);
+            font-family: 'Oxanium', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 252, 0.3);
+        }
+
+        .payment-info {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 0, 247, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-method {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-method:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .payment-method strong {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 252, 0.4);
+        }
+
+        /* Footer estilo cyber */
+        footer {
+            background: linear-gradient(180deg, rgba(0,15,30,0.9) 0%, rgba(0,0,20,1) 100%);
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--primary);
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links h3,
+        .social-links h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 252, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 252, 0.2);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Efectos especiales */
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary), 0 0 20px var(--primary);
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--primary), 0 0 40px var(--primary);
+            }
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 70px 0;
+            }
+
+            .teams-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .team-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .registration-form {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .teams-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            .team-card {
+                padding: 10px;
+            }
+
+            .team-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .team-name {
+                font-size: 0.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo-container">
-                <img src=<img src="https://i.ibb.co/zVWk7dMy/LOGO-PUNTOS-NEMESIS.png" alt="LOGO-PUNTOS-NEMESIS" border="0">
-                <h1>Torneo Champions League 2025</h1>
-            </div>
-            <div class="countdown">
-                <p>Inscripciones abiertas hasta:</p>
-                <div id="countdown-timer"></div>
+            <div class="header-content">
+                <img src="https://i.imgur.com/KbQYwXH.png" alt="EA FC 25" class="logo">
+                <div class="countdown">
+                    <i class="fas fa-clock"></i>
+                    <span id="countdown-timer">15d 00h 00m 00s</span>
+                </div>
             </div>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h2>Demuestra tu habilidad y gana increíbles premios</h2>
-                <p>Participa en el torneo oficial de EA SPORT FC 25 y compite contra los mejores jugadores de la región.</p>
-                <a href="#inscripcion" class="cta-button">¡Inscríbete ahora!</a>
-            </div>
+            <h1 class="glow">Torneo EA FC 25 Champions</h1>
+            <p>Demuestra tu habilidad en el campo virtual y compite por premios increíbles en el torneo más esperado del año</p>
+            <a href="#inscripcion" class="cta-button">¡Inscríbete Ahora!</a>
         </div>
     </section>
 
-    <section class="info-section">
+    <section class="teams-section">
         <div class="container">
-            <div class="info-grid">
-                <div class="info-card">
-                    <i class="fas fa-trophy"></i>
-                    <h3>Premios increíbles</h3>
-                    <p>Los mejores jugadores recibirán premios en efectivo y productos exclusivos de EA SPORTS.</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-users"></i>
-                    <h3>Competencia justa</h3>
-                    <p>Sistema de emparejamiento por habilidad para garantizar partidas equilibradas.</p>
-                </div>
-                <div class="info-card">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3>Fechas importantes</h3>
-                    <p>Inscripciones hasta el 30 de noviembre. Torneo inicia el 5 de diciembre.</p>
-                </div>
+            <h2 class="section-title">Equipos Disponibles</h2>
+            <div class="teams-grid" id="teams-grid">
+                <!-- Equipos se cargarán con JavaScript -->
             </div>
-        </div>
-    </section>
-
-    <section class="gameplay-section">
-        <div class="container">
-            <h2>EA SPORT FC 25 - La nueva era del fútbol virtual</h2>
-            <img src="img/gameplay.jpg" alt="Gameplay EA SPORT FC 25" class="gameplay-img">
-            <p>Experimenta el fútbol más realista con las nuevas mecánicas de juego y gráficos de última generación.</p>
         </div>
     </section>
 
     <section id="inscripcion" class="registration-section">
         <div class="container">
-            <h2>Formulario de Inscripción</h2>
+            <h2 class="section-title">Formulario de Inscripción</h2>
             <form id="registration-form" class="registration-form">
                 <div class="form-group">
-                    <label for="nombre">Nombre y Apellido*</label>
+                    <label for="nombre"><i class="fas fa-user"></i> Nombre y Apellido*</label>
                     <input type="text" id="nombre" name="nombre" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="telefono">Teléfono / WhatsApp*</label>
+                    <label for="telefono"><i class="fas fa-phone"></i> Teléfono / WhatsApp*</label>
                     <input type="tel" id="telefono" name="telefono" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="equipo">Equipo a elegir*</label>
+                    <label for="equipo"><i class="fas fa-users"></i> Equipo a elegir*</label>
                     <select id="equipo" name="equipo" required>
                         <option value="">Selecciona tu equipo</option>
-                        <!-- Los equipos se cargarán dinámicamente con JavaScript -->
+                        <!-- Equipos se cargarán con JavaScript -->
                     </select>
-                    <div id="equipo-counter" class="counter">Equipos disponibles: 32</div>
+                    <div id="equipo-counter" class="counter" style="color: var(--accent); margin-top: 5px;">Equipos disponibles: 32</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="metodo-pago">Método de pago*</label>
+                    <label for="metodo-pago"><i class="fas fa-credit-card"></i> Método de pago*</label>
                     <select id="metodo-pago" name="metodo-pago" required>
                         <option value="">Selecciona método de pago</option>
                         <option value="Bancolombia">Bancolombia</option>
@@ -98,7 +581,7 @@
                 </div>
                 
                 <div id="pago-info" class="payment-info">
-                    <h3>Información de pago</h3>
+                    <h3><i class="fas fa-info-circle"></i> Información de pago</h3>
                     <div class="payment-method" data-method="Bancolombia">
                         <p><strong>🏦💛 BANCOLOMBIA</strong></p>
                         <p>📲 Ahorro a la Mano</p>
@@ -123,22 +606,24 @@
                     </div>
                     <div class="payment-method" data-method="PSE">
                         <p><strong>💻💳 PAGO EN LÍNEA (PSE / TARJETA DE CRÉDITO)</strong></p>
-                        <p>🌐 👉 <a href="https://acortar.link/Me2BXq" target="_blank">https://acortar.link/Me2BXq</a></p>
+                        <p>🌐 👉 <a href="https://acortar.link/Me2BXq" target="_blank" style="color: var(--primary);">https://acortar.link/Me2BXq</a></p>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="referencia">Referencia de pago*</label>
+                    <label for="referencia"><i class="fas fa-receipt"></i> Referencia de pago*</label>
                     <input type="text" id="referencia" name="referencia" required>
-                    <p class="note">Nota: Debes incluir el número de referencia que obtuviste al realizar el pago.</p>
+                    <p class="note" style="color: var(--accent); font-size: 0.8rem;">Nota: Incluye el número de referencia que obtuviste al realizar el pago</p>
                 </div>
                 
                 <div class="form-group terms">
                     <input type="checkbox" id="terminos" name="terminos" required>
-                    <label for="terminos">Acepto los términos y condiciones del torneo*</label>
+                    <label for="terminos">Acepto los <a href="#" style="color: var(--primary);">términos y condiciones</a> del torneo*</label>
                 </div>
                 
-                <button type="submit" class="submit-button">Enviar inscripción</button>
+                <button type="submit" class="submit-button">
+                    <i class="fas fa-paper-plane"></i> Enviar inscripción
+                </button>
             </form>
         </div>
     </section>
@@ -147,7 +632,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="img/logo.png" alt="EA SPORT FC 25" class="logo">
+                    <img src="https://i.imgur.com/KbQYwXH.png" alt="EA FC 25" class="logo">
+                    <p>El torneo oficial de EA SPORT FC 25 en Colombia</p>
                 </div>
                 <div class="footer-links">
                     <h3>Contacto</h3>
@@ -156,27 +642,176 @@
                 </div>
                 <div class="social-links">
                     <h3>Síguenos</h3>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Torneo EA SPORT FC 25. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Torneo EA FC 25 Champions. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <div id="success-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>¡Inscripción exitosa!</h2>
-            <p>Tu registro para el torneo de EA SPORT FC 25 ha sido recibido correctamente.</p>
-            <p>Te enviaremos un correo de confirmación con los detalles de tu participación.</p>
-            <button class="modal-button">Aceptar</button>
-        </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Equipos de la Champions League con logos
+            const equiposChampions = [
+                { nombre: "Real Madrid", logo: "https://i.imgur.com/mZm1v0E.png" },
+                { nombre: "Barcelona", logo: "https://i.imgur.com/JzLvDgF.png" },
+                { nombre: "Bayern Múnich", logo: "https://i.imgur.com/3QZ1X9y.png" },
+                { nombre: "Manchester City", logo: "https://i.imgur.com/vVXp3Yt.png" },
+                { nombre: "Liverpool", logo: "https://i.imgur.com/9XjJQ7c.png" },
+                { nombre: "PSG", logo: "https://i.imgur.com/4mZ8LbN.png" },
+                { nombre: "Chelsea", logo: "https://i.imgur.com/5bTz1Ks.png" },
+                { nombre: "Inter de Milán", logo: "https://i.imgur.com/7JvY1qG.png" },
+                { nombre: "AC Milan", logo: "https://i.imgur.com/8K3nL9f.png" },
+                { nombre: "Juventus", logo: "https://i.imgur.com/2VjZ1Xx.png" },
+                { nombre: "Arsenal", logo: "https://i.imgur.com/1JzLvDg.png" },
+                { nombre: "Borussia Dortmund", logo: "https://i.imgur.com/3QZ1X9z.png" },
+                { nombre: "Atlético de Madrid", logo: "https://i.imgur.com/mZm1v0F.png" },
+                { nombre: "Sevilla", logo: "https://i.imgur.com/JzLvDgG.png" },
+                { nombre: "RB Leipzig", logo: "https://i.imgur.com/3QZ1X9A.png" },
+                { nombre: "Benfica", logo: "https://i.imgur.com/mZm1v0B.png" },
+                { nombre: "Porto", logo: "https://i.imgur.com/JzLvDgC.png" },
+                { nombre: "Ajax", logo: "https://i.imgur.com/3QZ1X9D.png" },
+                { nombre: "Shakhtar Donetsk", logo: "https://i.imgur.com/mZm1v0C.png" },
+                { nombre: "Celtic", logo: "https://i.imgur.com/JzLvDgD.png" },
+                { nombre: "Rangers", logo: "https://i.imgur.com/3QZ1X9E.png" },
+                { nombre: "Galatasaray", logo: "https://i.imgur.com/mZm1v0D.png" },
+                { nombre: "Fenerbahçe", logo: "https://i.imgur.com/JzLvDgE.png" },
+                { nombre: "Olympiakos", logo: "https://i.imgur.com/3QZ1X9F.png" },
+                { nombre: "Dinamo Kiev", logo: "https://i.imgur.com/mZm1v0E.png" },
+                { nombre: "Red Bull Salzburg", logo: "https://i.imgur.com/JzLvDgF.png" },
+                { nombre: "Sporting de Lisboa", logo: "https://i.imgur.com/3QZ1X9G.png" },
+                { nombre: "PSV Eindhoven", logo: "https://i.imgur.com/mZm1v0F.png" },
+                { nombre: "Napoli", logo: "https://i.imgur.com/JzLvDgG.png" },
+                { nombre: "Roma", logo: "https://i.imgur.com/3QZ1X9H.png" },
+                { nombre: "Lazio", logo: "https://i.imgur.com/mZm1v0G.png" },
+                { nombre: "Copenhague", logo: "https://i.imgur.com/JzLvDgH.png" }
+            ];
 
-    <script src="script.js"></script>
+            // Cargar equipos en el grid y en el select
+            const teamsGrid = document.getElementById('teams-grid');
+            const selectEquipo = document.getElementById('equipo');
+            const equipoCounter = document.getElementById('equipo-counter');
+            
+            equiposChampions.forEach(equipo => {
+                // Para el grid
+                const teamCard = document.createElement('div');
+                teamCard.className = 'team-card';
+                teamCard.innerHTML = `
+                    <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
+                    <div class="team-name">${equipo.nombre}</div>
+                `;
+                teamsGrid.appendChild(teamCard);
+                
+                // Para el select
+                const option = document.createElement('option');
+                option.value = equipo.nombre;
+                option.textContent = equipo.nombre;
+                selectEquipo.appendChild(option);
+            });
+
+            // Contador de equipos seleccionados
+            let conteoEquipos = {};
+            equiposChampions.forEach(equipo => {
+                conteoEquipos[equipo.nombre] = 0;
+            });
+
+            // Mostrar información de pago según método seleccionado
+            const metodoPagoSelect = document.getElementById('metodo-pago');
+            const pagoInfo = document.getElementById('pago-info');
+            const paymentMethods = document.querySelectorAll('.payment-method');
+
+            metodoPagoSelect.addEventListener('change', function() {
+                const metodoSeleccionado = this.value;
+                
+                if (metodoSeleccionado) {
+                    pagoInfo.style.display = 'block';
+                    
+                    // Ocultar todos los métodos primero
+                    paymentMethods.forEach(method => {
+                        method.style.display = 'none';
+                    });
+                    
+                    // Mostrar solo el método seleccionado
+                    document.querySelector(`.payment-method[data-method="${metodoSeleccionado}"]`).style.display = 'block';
+                } else {
+                    pagoInfo.style.display = 'none';
+                }
+            });
+
+            // Contador regresivo
+            const countdownTimer = document.getElementById('countdown-timer');
+            const fechaLimite = new Date();
+            fechaLimite.setDate(fechaLimite.getDate() + 15); // 15 días desde hoy
+
+            function actualizarCountdown() {
+                const ahora = new Date();
+                const diferencia = fechaLimite - ahora;
+                
+                if (diferencia <= 0) {
+                    countdownTimer.textContent = "¡Inscripciones cerradas!";
+                    return;
+                }
+                
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+                
+                countdownTimer.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+            }
+            
+            setInterval(actualizarCountdown, 1000);
+            actualizarCountdown();
+
+            // Manejar el envío del formulario
+            const registrationForm = document.getElementById('registration-form');
+
+            registrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Actualizar conteo de equipos seleccionados
+                const equipoSeleccionado = selectEquipo.value;
+                conteoEquipos[equipoSeleccionado]++;
+                
+                // Verificar si el equipo ha sido seleccionado 5 veces
+                if (conteoEquipos[equipoSeleccionado] >= 5) {
+                    // Eliminar el equipo de la lista
+                    const options = selectEquipo.options;
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i].value === equipoSeleccionado) {
+                            selectEquipo.remove(i);
+                            break;
+                        }
+                    }
+                    
+                    // Actualizar contador
+                    equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
+                    
+                    // Eliminar también del grid (opcional)
+                    const teamCards = document.querySelectorAll('.team-card');
+                    teamCards.forEach(card => {
+                        if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // Aquí normalmente enviarías los datos a un servidor
+                // Para este ejemplo, mostramos un alert
+                alert('Inscripción recibida! Te contactaremos pronto.');
+                
+                // Resetear formulario
+                this.reset();
+                pagoInfo.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
