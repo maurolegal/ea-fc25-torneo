@@ -1,1 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo EA SPORT FC 25 | Champions League 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Oswald:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="img/logo.png" alt="EA SPORT FC 25" class="logo">
+                <h1>Torneo Champions League 2025</h1>
+            </div>
+            <div class="countdown">
+                <p>Inscripciones abiertas hasta:</p>
+                <div id="countdown-timer"></div>
+            </div>
+        </div>
+    </header>
 
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Demuestra tu habilidad y gana increíbles premios</h2>
+                <p>Participa en el torneo oficial de EA SPORT FC 25 y compite contra los mejores jugadores de la región.</p>
+                <a href="#inscripcion" class="cta-button">¡Inscríbete ahora!</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Premios increíbles</h3>
+                    <p>Los mejores jugadores recibirán premios en efectivo y productos exclusivos de EA SPORTS.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Competencia justa</h3>
+                    <p>Sistema de emparejamiento por habilidad para garantizar partidas equilibradas.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Fechas importantes</h3>
+                    <p>Inscripciones hasta el 30 de noviembre. Torneo inicia el 5 de diciembre.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gameplay-section">
+        <div class="container">
+            <h2>EA SPORT FC 25 - La nueva era del fútbol virtual</h2>
+            <img src="img/gameplay.jpg" alt="Gameplay EA SPORT FC 25" class="gameplay-img">
+            <p>Experimenta el fútbol más realista con las nuevas mecánicas de juego y gráficos de última generación.</p>
+        </div>
+    </section>
+
+    <section id="inscripcion" class="registration-section">
+        <div class="container">
+            <h2>Formulario de Inscripción</h2>
+            <form id="registration-form" class="registration-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre y Apellido*</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono / WhatsApp*</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="equipo">Equipo a elegir*</label>
+                    <select id="equipo" name="equipo" required>
+                        <option value="">Selecciona tu equipo</option>
+                        <!-- Los equipos se cargarán dinámicamente con JavaScript -->
+                    </select>
+                    <div id="equipo-counter" class="counter">Equipos disponibles: 32</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="metodo-pago">Método de pago*</label>
+                    <select id="metodo-pago" name="metodo-pago" required>
+                        <option value="">Selecciona método de pago</option>
+                        <option value="Bancolombia">Bancolombia</option>
+                        <option value="BBVA">Banco BBVA</option>
+                        <option value="Nequi">Nequi</option>
+                        <option value="Daviplata">Daviplata</option>
+                        <option value="PSE">Pago en línea (PSE/Tarjeta)</option>
+                    </select>
+                </div>
+                
+                <div id="pago-info" class="payment-info">
+                    <h3>Información de pago</h3>
+                    <div class="payment-method" data-method="Bancolombia">
+                        <p><strong>🏦💛 BANCOLOMBIA</strong></p>
+                        <p>📲 Ahorro a la Mano</p>
+                        <p>🔢 19700032186</p>
+                        <p>👤 ken**oso**per</p>
+                    </div>
+                    <div class="payment-method" data-method="BBVA">
+                        <p><strong>🏦💙 BANCO BBVA</strong></p>
+                        <p>🔢 940424419</p>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>🪪 Cédula: 1.065.637.548</p>
+                    </div>
+                    <div class="payment-method" data-method="Nequi">
+                        <p><strong>📲💜 NEQUI</strong></p>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>📞 3045528042</p>
+                    </div>
+                    <div class="payment-method" data-method="Daviplata">
+                        <p><strong>📲❤️ DAVIPLATA</strong></p>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>📞 3045528042</p>
+                    </div>
+                    <div class="payment-method" data-method="PSE">
+                        <p><strong>💻💳 PAGO EN LÍNEA (PSE / TARJETA DE CRÉDITO)</strong></p>
+                        <p>🌐 👉 <a href="https://acortar.link/Me2BXq" target="_blank">https://acortar.link/Me2BXq</a></p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="referencia">Referencia de pago*</label>
+                    <input type="text" id="referencia" name="referencia" required>
+                    <p class="note">Nota: Debes incluir el número de referencia que obtuviste al realizar el pago.</p>
+                </div>
+                
+                <div class="form-group terms">
+                    <input type="checkbox" id="terminos" name="terminos" required>
+                    <label for="terminos">Acepto los términos y condiciones del torneo*</label>
+                </div>
+                
+                <button type="submit" class="submit-button">Enviar inscripción</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="EA SPORT FC 25" class="logo">
+                </div>
+                <div class="footer-links">
+                    <h3>Contacto</h3>
+                    <p><i class="fas fa-envelope"></i> torneofc25@example.com</p>
+                    <p><i class="fas fa-phone"></i> +57 304 5528042</p>
+                </div>
+                <div class="social-links">
+                    <h3>Síguenos</h3>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Torneo EA SPORT FC 25. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>¡Inscripción exitosa!</h2>
+            <p>Tu registro para el torneo de EA SPORT FC 25 ha sido recibido correctamente.</p>
+            <p>Te enviaremos un correo de confirmación con los detalles de tu participación.</p>
+            <button class="modal-button">Aceptar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
