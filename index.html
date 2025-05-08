@@ -783,12 +783,23 @@
 
             // Manejar el envío del formulario
             const registrationForm = document.getElementById('registration-form');
-
-            <form 
+<form 
     id="registration-form" 
     class="registration-form"
     action="https://formspree.io/f/xwpobdyg" 
     method="POST"
+>
+    <!-- Campos del formulario existentes -->
+    
+    <!-- Campos ocultos adicionales -->
+    <input type="hidden" name="_subject" value="Nueva inscripción al torneo EA FC25">
+    <input type="hidden" name="_replyto" value="tucorreo@dominio.com">
+    <input type="hidden" name="_autoresponse" value="Gracias por inscribirte al torneo. Hemos recibido tu registro.">
+    
+    <button type="submit" class="submit-button">
+        <i class="fas fa-paper-plane"></i> Enviar inscripción
+    </button>
+</form>
                 
                 // Actualizar conteo de equipos seleccionados
                 const equipoSeleccionado = selectEquipo.value;
