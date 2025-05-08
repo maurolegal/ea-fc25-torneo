@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneo EA FC 25 | Champions Neon</title>
+    <title>Torneo EA FC 25 | Champions Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
     <style>
@@ -13,7 +13,6 @@
             --dark: #0c1020;
             --light: #f0f8ff;
             --accent: #ffcc00;
-            --neon-text: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--secondary);
         }
 
         * {
@@ -50,7 +49,7 @@
             padding: 0 15px;
         }
 
-        /* Header estilo neon */
+        /* Header estilo gamer */
         header {
             background: linear-gradient(135deg, rgba(0, 15, 30, 0.9) 0%, rgba(0, 0, 20, 0.95) 100%);
             backdrop-filter: blur(10px);
@@ -59,7 +58,7 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--primary);
-            box-shadow: var(--neon-text);
+            box-shadow: 0 0 20px rgba(0, 255, 252, 0.3);
         }
 
         .header-content {
@@ -70,252 +69,152 @@
         }
 
         .logo {
-            height: 60px;
-            transition: all 0.3s ease;
-            filter: drop-shadow(var(--neon-text));
-        }
-
-        .countdown {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px 15px;
-            border-radius: 30px;
-            border: 1px solid var(--accent);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-shadow: var(--neon-text);
-        }
-
-        #countdown-timer {
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        /* Hero Section con efecto neon mejorado */
-        .hero {
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0,255,252,0.1) 0%, rgba(0,0,0,0) 70%);
-            animation: pulse 8s infinite alternate;
-            z-index: -1;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        .hero h1 {
-            font-family: 'Russo One', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: var(--neon-text);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        /* Sección de equipos */
-        .teams-section {
-            padding: 60px 0;
-            background: rgba(5, 10, 25, 0.7);
-            backdrop-filter: blur(5px);
-        }
-
-        .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .team-card {
-            background: rgba(10, 15, 40, 0.7);
-            border: 1px solid var(--primary);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 255, 252, 0.2);
-        }
-
-        .team-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px var(--primary);
-        }
-
-        .team-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 5px var(--primary));
-        }
-
-        .team-name {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        /* Formulario estilo cyber */
-        .registration-section {
-            padding: 80px 0;
-            background: rgba(0, 0, 20, 0.8);
-        }
-
-        .registration-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(10, 15, 40, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid var(--primary);
-            box-shadow: var(--neon-text);
-        }
-
-        /* Iconos redes sociales personalizados */
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: 1px solid;
-            font-size: 1.2rem;
-        }
-
-        .social-icon.facebook {
-            color: #1877f2;
-            border-color: #1877f2;
-        }
-        .social-icon.twitter {
-            color: #1da1f2;
-            border-color: #1da1f2;
-        }
-        .social-icon.instagram {
-            color: #e1306c;
-            border-color: #e1306c;
-        }
-        .social-icon.twitch {
-            color: #9146ff;
-            border-color: #9146ff;
-        }
-        .social-icon:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px currentColor;
-        }
-
-        /* Botón WhatsApp flotante */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25d366;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 1.5s infinite;
+            height: 50px;
             transition: all 0.3s ease;
         }
 
-        .whatsapp-float img {
-            width: 40px;
-            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
-        }
+                    document.querySelector(`.payment-method[data-method="${metodoSeleccionado}"]`).style.display = 'block';
+                } else {
+                    pagoInfo.style.display = 'none';
+                }
+            });
 
-        @media (max-width: 768px) {
-            .teams-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            // Contador regresivo
+            const countdownTimer = document.getElementById('countdown-timer');
+            const fechaLimite = new Date(2025, 04, 17, 23, 59);
+            
+            function actualizarCountdown() {
+                const ahora = new Date();
+                const diferencia = fechaLimite - ahora;
+                
+                if (diferencia <= 0) {
+                    countdownTimer.textContent = "¡Inscripciones cerradas!";
+                    return;
+                }
+                
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+                
+                countdownTimer.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
             }
-            .team-logo {
-                width: 60px;
-                height: 60px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <img src="https://i.ibb.co/3kmQ9HY/ea-fc25-neon.png" alt="EA FC 25 Neon" class="logo">
-                <div class="countdown">
-                    <i class="fas fa-clock"></i>
-                    <span id="countdown-timer">Cargando...</span>
-                </div>
-            </div>
-        </div>
-    </header>
+            
+            setInterval(actualizarCountdown, 1000);
+            actualizarCountdown();
 
-    <section class="hero">
-        <div class="container">
-            <h1 class="glow">Torneo EA FC 25 Champions Neon</h1>
-            <p>¡Demuestra tu habilidad en el campo virtual y compite por premios increíbles!</p>
-            <a href="#inscripcion" class="cta-button">¡Inscríbete Ahora!</a>
-        </div>
-    </section>
-
-    <section class="teams-section">
-        <div class="container">
-            <h2 class="section-title">Equipos Disponibles</h2>
-            <div class="teams-grid" id="teams-grid"></div>
-        </div>
-    </section>
-
-    <section id="inscripcion" class="registration-section">
-        <div class="container">
-            <h2 class="section-title">Formulario de Inscripción</h2>
-            <form id="registration-form" class="registration-form" action="https://formspree.io/f/your-form-id" method="POST">
-                <!-- Campos del formulario... -->
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="social-icons">
-                <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon twitch"><i class="fab fa-twitch"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Código JavaScript actualizado...
+            // Manejar el envío del formulario
+            const registrationForm = document.getElementById('registration-form');
+<form 
+    id="registration-form" 
+    class="registration-form"
+    action="https://formspree.io/f/xwpobdyg" 
+    method="POST"
+>
+    <!-- Campos del formulario existentes -->
+    
+    <!-- Campos ocultos adicionales -->
+    <input type="hidden" name="_subject" value="Nueva inscripción al torneo EA FC25">
+    <input type="hidden" name="_replyto" value="tucorreo@dominio.com">
+    <input type="hidden" name="_autoresponse" value="Gracias por inscribirte al torneo. Hemos recibido tu registro.">
+    
+    <button type="submit" class="submit-button">
+        <i class="fas fa-paper-plane"></i> Enviar inscripción
+    </button>
+</form>
+                
+                // Actualizar conteo de equipos seleccionados
+                const equipoSeleccionado = selectEquipo.value;
+                conteoEquipos[equipoSeleccionado]++;
+                
+                // Verificar si el equipo ha sido seleccionado 5 veces
+                if (conteoEquipos[equipoSeleccionado] >= 5) {
+                    // Eliminar el equipo de la lista
+                    const options = selectEquipo.options;
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i].value === equipoSeleccionado) {
+                            selectEquipo.remove(i);
+                            break;
+                        }
+                    }
+                    
+                    // Actualizar contador
+                    equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
+                    
+                    // Eliminar también del grid (opcional)
+                    const teamCards = document.querySelectorAll('.team-card');
+                    teamCards.forEach(card => {
+                        if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // Aquí normalmente enviarías los datos a un servidor
+                // Para este ejemplo, mostramos un alert
+                alert('Inscripción recibida! Te contactaremos pronto.');
+                
+                // Resetear formulario
+                this.reset();
+                pagoInfo.style.display = 'none';
+            });
+        });
     </script>
+     <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/573027530234" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp">
+  </a>
+
+  <style>
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: #FFF;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 1.5s infinite;
+      transition: all 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+      background-color: #128C7E;
+      transform: scale(1.1);
+    }
+
+    .whatsapp-float img {
+      width: 40px;
+      height: 40px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+      }
+      
+      .whatsapp-float img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  </style>
 </body>
 </html>
