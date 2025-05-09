@@ -781,29 +781,47 @@
             // Manejar el envío del formulario
             const registrationForm = document.getElementById('registration-form');
 
-            registrationForm.addEventListener('submit', async function(e) {
+           registrationForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Lógica existente de conteo de equipos
+    // Tu lógica existente de equipos
     const equipoSeleccionado = selectEquipo.value;
     conteoEquipos[equipoSeleccionado]++;
     
     if (conteoEquipos[equipoSeleccionado] >= 5) {
-        const options = selectEquipo.options;
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].value === equipoSeleccionado) {
-                selectEquipo.remove(i);
-                break;
-            }
-        }
-        equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
-        
-        const teamCards = document.querySelectorAll('.team-card');
-        teamCards.forEach(card => {
-            if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
-                card.style.display = 'none';
-            }
+        // ... (código existente)
+    }
+
+    // Envío a Formspark
+    try {
+        const response = await fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre: this.nombre.value,
+                telefono: this.telefono.value,
+                equipo: this.equipo.value,
+                metodoPago: this['metodo-pago'].value,
+                referencia: this.referencia.value,
+                terminos: this.terminos.checked
+            })
         });
+
+        if (response.ok) {
+            alert('Inscripción exitosa!');
+            this.reset();
+            pagoInfo.style.display = 'none';
+        } else {
+            alert('Error al enviar el formulario');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error de conexión');
+    }
+});
     }
 
     // Envío a Formspree
