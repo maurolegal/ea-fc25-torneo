@@ -783,28 +783,7 @@
 
             registrationForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                try {
-        const response = await fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this),
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            // Mostrar modal de éxito
-            successModal.style.display = 'flex';
-            this.reset();
-            pagoInfo.style.display = 'none';
-        } else {
-            const errorData = await response.json();
-            alert(`Error: ${errorData.error}`);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error de conexión');
-    }
+                }
                 // Actualizar conteo de equipos seleccionados
                 const equipoSeleccionado = selectEquipo.value;
                 conteoEquipos[equipoSeleccionado]++;
