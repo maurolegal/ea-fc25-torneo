@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneo EA FC 25 | Champions Neon</title>
+    <title>Torneo EA FC 25 | Champions Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
     <style>
@@ -13,7 +13,6 @@
             --dark: #0c1020;
             --light: #f0f8ff;
             --accent: #ffcc00;
-            --neon-text: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--secondary);
         }
 
         * {
@@ -27,7 +26,7 @@
             background-color: var(--dark);
             color: var(--light);
             overflow-x: hidden;
-            background: url('https://i.ibb.co/xtkw0mB7/background-de-fc-25.jpg') no-repeat center center fixed;
+            background: url('https://i.imgur.com/JVv8n0E.jpg') no-repeat center center fixed;
             background-size: cover;
             position: relative;
         }
@@ -50,7 +49,7 @@
             padding: 0 15px;
         }
 
-        /* Header estilo neon */
+        /* Header estilo gamer */
         header {
             background: linear-gradient(135deg, rgba(0, 15, 30, 0.9) 0%, rgba(0, 0, 20, 0.95) 100%);
             backdrop-filter: blur(10px);
@@ -59,7 +58,7 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid var(--primary);
-            box-shadow: var(--neon-text);
+            box-shadow: 0 0 20px rgba(0, 255, 252, 0.3);
         }
 
         .header-content {
@@ -70,9 +69,13 @@
         }
 
         .logo {
-            height: 60px;
+            height: 50px;
             transition: all 0.3s ease;
-            filter: drop-shadow(var(--neon-text));
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 10px var(--primary));
         }
 
         .countdown {
@@ -84,7 +87,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-shadow: var(--neon-text);
         }
 
         #countdown-timer {
@@ -93,7 +95,7 @@
             font-size: 1rem;
         }
 
-        /* Hero Section con efecto neon mejorado */
+        /* Hero Section con efecto neon */
         .hero {
             padding: 100px 0;
             text-align: center;
@@ -128,144 +130,387 @@
             color: transparent;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: var(--neon-text);
-            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px rgba(0, 255, 252, 0.3);
         }
 
-        /* Sección de equipos */
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 255, 252, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 255, 252, 0.6);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Sección de equipos con grid responsive */
         .teams-section {
             padding: 60px 0;
             background: rgba(5, 10, 25, 0.7);
             backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(0, 255, 252, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 252, 0.2);
         }
 
         .teams-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
             margin-top: 30px;
         }
 
         .team-card {
             background: rgba(10, 15, 40, 0.7);
-            border: 1px solid var(--primary);
-            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 252, 0.2);
+            border-radius: 8px;
             padding: 15px;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 255, 252, 0.2);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: 0.5s;
         }
 
         .team-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 25px var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 255, 252, 0.2);
+            border-color: transparent;
+        }
+
+        .team-card:hover::before {
+            opacity: 1;
         }
 
         .team-logo {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             object-fit: contain;
             margin-bottom: 10px;
-            filter: drop-shadow(0 0 5px var(--primary));
+            filter: drop-shadow(0 0 5px rgba(0, 255, 252, 0.5));
         }
 
         .team-name {
             font-size: 0.9rem;
             font-weight: bold;
-            color: var(--primary);
         }
 
-        /* Formulario estilo cyber */
+        /* Formulario estilo futurista */
         .registration-section {
             padding: 80px 0;
-            background: rgba(0, 0, 20, 0.8);
+            position: relative;
+        }
+
+        .registration-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.imgur.com/JVv8n0E.jpg') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Russo One', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
         }
 
         .registration-form {
             max-width: 600px;
             margin: 0 auto;
-            background: rgba(10, 15, 40, 0.9);
+            background: rgba(10, 15, 40, 0.8);
             padding: 30px;
             border-radius: 15px;
-            border: 1px solid var(--primary);
-            box-shadow: var(--neon-text);
+            border: 1px solid rgba(0, 255, 252, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 252, 0.1);
+            backdrop-filter: blur(5px);
         }
 
-        /* Iconos redes sociales personalizados */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 252, 0.3);
+            border-radius: 5px;
+            color: var(--light);
+            font-family: 'Oxanium', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 252, 0.3);
+        }
+
+        .payment-info {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 0, 247, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-method {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .payment-method:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .payment-method strong {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 252, 0.4);
+        }
+
+        /* Footer estilo cyber */
+        footer {
+            background: linear-gradient(180deg, rgba(0,15,30,0.9) 0%, rgba(0,0,20,1) 100%);
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--primary);
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links h3,
+        .social-links h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+        }
+
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
         }
 
         .social-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: 1px solid;
-            font-size: 1.2rem;
-        }
-
-        .social-icon.facebook {
-            color: #1877f2;
-            border-color: #1877f2;
-        }
-        .social-icon.twitter {
-            color: #1da1f2;
-            border-color: #1da1f2;
-        }
-        .social-icon.instagram {
-            color: #e1306c;
-            border-color: #e1306c;
-        }
-        .social-icon.youtube {
-            color: #ff0000;
-            border-color: #ff0000;
-        }
-        .social-icon.tiktok {
-            color: #69c9d0;
-            border-color: #69c9d0;
-        }
-        .social-icon:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px currentColor;
-        }
-
-        /* Botón WhatsApp flotante */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25d366;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse 1.5s infinite;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-float img {
             width: 40px;
-            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+            height: 40px;
+            background: rgba(0, 255, 252, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
         }
 
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 252, 0.2);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Efectos especiales */
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--primary), 0 0 20px var(--primary);
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--primary), 0 0 40px var(--primary);
+            }
+        }
+
+        /* Responsive para móviles */
         @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 70px 0;
+            }
+
             .teams-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
+
             .team-logo {
-                width: 60px;
-                height: 60px;
+                width: 80px;
+                height: 80px;
+            }
+
+            .registration-form {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .teams-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            .team-card {
+                padding: 10px;
+            }
+
+            .team-logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .team-name {
+                font-size: 0.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -274,10 +519,10 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <img src="https://i.ibb.co/zVWk7dMy/LOGO-PUNTOS-NEMESIS.png" alt="EA FC 25 Neon" class="logo">
+                <img src="https://i.ibb.co/zVWk7dMy/LOGO-PUNTOS-NEMESIS.png" alt="EA FC 25" class="logo">
                 <div class="countdown">
                     <i class="fas fa-clock"></i>
-                    <span id="countdown-timer">Cargando...</span>
+                    <span id="countdown-timer">11d 00h 00m 00s</span>
                 </div>
             </div>
         </div>
@@ -285,8 +530,8 @@
 
     <section class="hero">
         <div class="container">
-            <h1 class="glow">Torneo EA FC 25 Champions Neon</h1>
-            <p>¡Demuestra quien es el mejor en Valledupar y llevate $400.000 pesos para tu casa ¡CAMPEON!</p>
+            <h1 class="glow">Torneo EA FC 25 Champions</h1>
+            <p>Demuestra quien es el mejor en Valledupar y llevate $ 400.000 pesos para tu casa ¡CAMPEON!</p>
             <a href="#inscripcion" class="cta-button">¡Inscríbete Ahora!</a>
         </div>
     </section>
@@ -294,17 +539,16 @@
     <section class="teams-section">
         <div class="container">
             <h2 class="section-title">Equipos Disponibles</h2>
-            <div class="teams-grid" id="teams-grid"></div>
+            <div class="teams-grid" id="teams-grid">
+                <!-- Equipos se cargarán con JavaScript -->
+            </div>
         </div>
     </section>
 
     <section id="inscripcion" class="registration-section">
         <div class="container">
             <h2 class="section-title">Formulario de Inscripción</h2>
-            <form id="registration-form" class="registration-form" action="https://formspree.io/f/xwpobdyg" method="POST">
-                <input type="hidden" name="_subject" value="Nueva inscripción al torneo EA FC25">
-                <input type="hidden" name="_replyto" value="registronemesis@hotmail.com">
-                
+            <form id="registration-form" class="registration-form">
                 <div class="form-group">
                     <label for="nombre"><i class="fas fa-user"></i> Nombre y Apellido*</label>
                     <input type="text" id="nombre" name="nombre" required>
@@ -319,6 +563,7 @@
                     <label for="equipo"><i class="fas fa-users"></i> Equipo a elegir*</label>
                     <select id="equipo" name="equipo" required>
                         <option value="">Selecciona tu equipo</option>
+                        <!-- Equipos se cargarán con JavaScript -->
                     </select>
                     <div id="equipo-counter" class="counter" style="color: var(--accent); margin-top: 5px;">Equipos disponibles: 32</div>
                 </div>
@@ -338,29 +583,30 @@
                 <div id="pago-info" class="payment-info">
                     <h3><i class="fas fa-info-circle"></i> Información de pago</h3>
                     <div class="payment-method" data-method="Bancolombia">
-                        <p><strong>🏦BANCOLOMBIA</strong></p>
-                        <p>Ahorro a la Mano</p>
-                        <p>🔢19700032186</p>
-                        <p>👤ken**oso**per</p>
+                        <p><strong>🏦💛 BANCOLOMBIA</strong></p>
+                        <p>📲 Ahorro a la Mano</p>
+                        <p>🔢 19700032186</p>
+                        <p>👤 ken**oso**per</p>
                     </div>
                     <div class="payment-method" data-method="BBVA">
                         <p><strong>🏦💙 BANCO BBVA</strong></p>
-                        <p>🔢940424419</p>
-                        <p>👤jos**Mau**Chi**</p>
+                        <p>🔢 940424419</p>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>🪪 Cédula: 1.065.637.548</p>
                     </div>
                     <div class="payment-method" data-method="Nequi">
-                        <p><strong>📲NEQUI</strong></p>
-                        <p>👤jos**Mau**Chi**</p>
-                        <p>📞3045528042</p>
+                        <p><strong>📲💜 NEQUI</strong></p>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>📞 3045528042</p>
                     </div>
                     <div class="payment-method" data-method="Daviplata">
-                        <p><strong>📲DAVIPLATA</strong></p>
-                        <p>👤jos**Mau**Chi**</p>
-                        <p>📞3045528042</p>
+                        <p><strong>📲❤️ DAVIPLATA</strong></p>
+                        <p>👤 jos**Mau**Chi**</p>
+                        <p>📞 3045528042</p>
                     </div>
                     <div class="payment-method" data-method="PSE">
                         <p><strong>💻💳 PAGO EN LÍNEA (PSE / TARJETA DE CRÉDITO)</strong></p>
-                        <p>🌐 👉 <a href="https://checkout.wompi.co/l/90TJmP" target="_blank" style="color: var(--primary);">https://checkout.wompi.co/l/90TJmP</a></p>
+                        <p>🌐 👉 <a href="https://acortar.link/Me2BXq" target="_blank" style="color: var(--primary);">https://acortar.link/Me2BXq</a></p>
                     </div>
                 </div>
                 
@@ -386,30 +632,22 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="https://i.ibb.co/zVWk7dMy/LOGO-PUNTOS-NEMESIS.png" alt="EA FC 25" class="logo">
-                    <p>El Super Torneo de EA SPORT FC 25 en Valledupar</p>
+                    <img src="https://i.imgur.com/KbQYwXH.png" alt="EA FC 25" class="logo">
+                    <p>El torneo oficial de EA SPORT FC 25 en Colombia</p>
                 </div>
                 <div class="footer-links">
                     <h3>Contacto</h3>
-                    <p><i class="fas fa-envelope"></i> registronemesis@hotmail.com</p>
-                    <p><i class="fas fa-phone"></i> +57 3027530234</p>
+                    <p><i class="fas fa-envelope"></i> torneofc25@example.com</p>
+                    <p><i class="fas fa-phone"></i> +57 304 5528042</p>
                 </div>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/Nemesixpert" class="social-icon facebook" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://twitter.com/tucuenta" class="social-icon twitter" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="https://www.instagram.com/nemesis_xpert" class="social-icon instagram" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCRBh15x2bBF5MlU5qOlM2Lg" class="social-icon youtube" target="_blank">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@nemesisxpert" class="social-icon tiktok" target="_blank">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
+                <div class="social-links">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="copyright">
@@ -420,7 +658,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Lista de equipos con logos
+            // Equipos de la Champions League con logos
             const equiposChampions = [
                 { nombre: "Real Madrid", logo: "https://i.ibb.co/twrzCVXf/real-madrid.png" },
                 { nombre: "Barcelona", logo: "https://i.ibb.co/pjm42BkC/BARCELONA.png" },
@@ -509,7 +747,7 @@
 
             // Contador regresivo
             const countdownTimer = document.getElementById('countdown-timer');
-            const fechaLimite = new Date(2025, 4, 17, 23, 59);
+            const fechaLimite = new Date(2025, 04, 17, 23, 59);
             
             function actualizarCountdown() {
                 const ahora = new Date();
@@ -534,13 +772,14 @@
             // Manejar el envío del formulario
             const registrationForm = document.getElementById('registration-form');
 
-            registrationForm.addEventListener('submit', async function(e) {
+            registrationForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 // Actualizar conteo de equipos seleccionados
                 const equipoSeleccionado = selectEquipo.value;
                 conteoEquipos[equipoSeleccionado]++;
                 
+                // Verificar si el equipo ha sido seleccionado 5 veces
                 if (conteoEquipos[equipoSeleccionado] >= 5) {
                     // Eliminar el equipo de la lista
                     const options = selectEquipo.options;
@@ -554,7 +793,7 @@
                     // Actualizar contador
                     equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
                     
-                    // Eliminar también del grid
+                    // Eliminar también del grid (opcional)
                     const teamCards = document.querySelectorAll('.team-card');
                     teamCards.forEach(card => {
                         if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
@@ -562,33 +801,16 @@
                         }
                     });
                 }
-
-                // Enviar formulario a Formspree
-                try {
-                    const response = await fetch(this.action, {
-                        method: 'POST',
-                        body: new FormData(this),
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        alert('Inscripción recibida! Te contactaremos pronto.');
-                        this.reset();
-                        pagoInfo.style.display = 'none';
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Error al enviar el formulario');
-                }
+                
+                // Aquí normalmente enviarías los datos a un servidor
+                // Para este ejemplo, mostramos un alert
+                alert('Inscripción recibida! Te contactaremos pronto.');
+                
+                // Resetear formulario
+                this.reset();
+                pagoInfo.style.display = 'none';
             });
         });
     </script>
-
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/573027530234" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp">
-    </a>
 </body>
 </html>
