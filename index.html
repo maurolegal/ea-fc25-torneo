@@ -784,13 +784,32 @@
            registrationForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Tu lógica existente de equipos
-    const equipoSeleccionado = selectEquipo.value;
-    conteoEquipos[equipoSeleccionado]++;
-    
-    if (conteoEquipos[equipoSeleccionado] >= 5) {
-        // ... (código existente)
-    }
+      // Actualizar conteo de equipos seleccionados
+                const equipoSeleccionado = selectEquipo.value;
+                conteoEquipos[equipoSeleccionado]++;
+                
+                // Verificar si el equipo ha sido seleccionado 5 veces
+                if (conteoEquipos[equipoSeleccionado] >= 5) {
+                    // Eliminar el equipo de la lista
+                    const options = selectEquipo.options;
+                    for (let i = 0; i < options.length; i++) {
+                        if (options[i].value === equipoSeleccionado) {
+                            selectEquipo.remove(i);
+                            break;
+                        }
+                    }
+                    
+                    // Actualizar contador
+                    equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
+                    
+                    // Eliminar también del grid (opcional)
+                    const teamCards = document.querySelectorAll('.team-card');
+                    teamCards.forEach(card => {
+                        if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
 
     // Envío a Formspark
     try {
@@ -822,33 +841,6 @@
         alert('Error de conexión');
     }
 });
-    }
-
-    // Envío a Formspree
-    try {
-        const response = await fetch(this.action, {
-            method: 'POST',
-            body: new FormData(this),
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            alert('Inscripción recibida! Te contactaremos pronto.');
-            this.reset();
-            pagoInfo.style.display = 'none';
-        } else {
-            const error = await response.json();
-            alert(`Error: ${error.error}`);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error al enviar el formulario');
-    }
-});
-                }
-                
                 // Aquí normalmente enviarías los datos a un servidor
                 // Para este ejemplo, mostramos un alert
                 alert('Inscripción recibida! Te contactaremos pronto.');
