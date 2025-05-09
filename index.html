@@ -781,9 +781,9 @@
             // Manejar el envío del formulario
             const registrationForm = document.getElementById('registration-form');
 
-            registrationForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                }
+            registrationForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+            
                 // Actualizar conteo de equipos seleccionados
                 const equipoSeleccionado = selectEquipo.value;
                 conteoEquipos[equipoSeleccionado]++;
