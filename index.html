@@ -513,6 +513,57 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Estilos para el botón de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 1.5s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+        }
+
+        .whatsapp-float img {
+            width: 40px;
+            height: 40px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .whatsapp-float img {
+                width: 30px;
+                height: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -632,7 +683,7 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <img src="https://i.ibb.co/zVWk7dMy/LOGO-PUNTOS-NEMESIS.png" alt="EA FC 25" class="logo">
-                    <p>El Super Torneo de EA SPORT FC 25 en Valledupar </p>
+                    <p>El Super Torneo de EA SPORT FC 25 en Valledupar</p>
                 </div>
                 <div class="footer-links">
                     <h3>Contacto</h3>
@@ -642,20 +693,18 @@
                 <div class="social-links">
                     <h3>Síguenos</h3>
                     <div class="social-icons">
-                          <a href="https://www.facebook.com/Nemesixpert" target="_blank" rel="noopener noreferrer" class="social-icon">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    
-    <a href="https://www.instagram.com/nemesis_xpert" target="_blank" rel="noopener noreferrer" class="social-icon">
-        <i class="fab fa-instagram"></i>
-    </a>
-    
-    <a href=" https://www.tiktok.com/@nemesisxpert" target="_blank" rel="noopener noreferrer" class="social-icon">
-        <i class="fab fa-tiktok"></i>
-    </a>
-    <a href="https://www.youtube.com/@nemesisxpert" target="_blank" rel="noopener noreferrer" class="social-icon">
-        <i class="fab fa-youtube"></i>
-    </a>
+                        <a href="https://www.facebook.com/Nemesixpert" target="_blank" rel="noopener noreferrer" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/nemesis_xpert" target="_blank" rel="noopener noreferrer" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@nemesisxpert" target="_blank" rel="noopener noreferrer" class="social-icon">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@nemesisxpert" target="_blank" rel="noopener noreferrer" class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -665,47 +714,52 @@
         </div>
     </footer>
 
+    <a href="https://wa.me/573027530234" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp">
+    </a>
+
     <script>
+        // Lista completa de equipos de la Champions League
+        const equiposChampions = [
+            { nombre: "Real Madrid", logo: "https://i.ibb.co/twrzCVXf/real-madrid.png" },
+            { nombre: "Barcelona", logo: "https://i.ibb.co/pjm42BkC/BARCELONA.png" },
+            { nombre: "Bayern Múnich", logo: "https://i.ibb.co/mChM8rpX/BAYER.png" },
+            { nombre: "Manchester City", logo: "https://i.ibb.co/RpnbGQnK/MANCHESTER-CITY.png" },
+            { nombre: "Liverpool", logo: "https://i.ibb.co/k250tfJM/liverpool.png" },
+            { nombre: "PSG", logo: "https://i.ibb.co/yBGv9gnF/psg.png" },
+            { nombre: "Chelsea", logo: "https://i.ibb.co/rGF0gmp0/CHELSEA.png" },
+            { nombre: "Inter de Milán", logo: "https://i.ibb.co/Tx0SSZS4/INTER-DE-MLINA.png" },
+            { nombre: "AC Milan", logo: "https://i.ibb.co/ZRgGJtrJ/ACM.png" },
+            { nombre: "Juventus", logo: "https://i.ibb.co/WWZMvzRs/JUVENTUS.png" },
+            { nombre: "Arsenal", logo: "https://i.ibb.co/603grPvX/8.png" },
+            { nombre: "Borussia Dortmund", logo: "https://i.ibb.co/HDzfMj9G/BORUSSIA.png" },
+            { nombre: "Atlético de Madrid", logo: "https://i.ibb.co/4nMyxY4c/ATLETICO.png" },
+            { nombre: "Sevilla", logo: "https://i.ibb.co/N6jGQB4Y/SEVILLA.png" },
+            { nombre: "RB Leipzig", logo: "https://i.ibb.co/HfDtRrKB/RB-LEIPZIONG.png" },
+            { nombre: "Benfica", logo: "https://i.ibb.co/218WL3tN/BENFICA.png" },
+            { nombre: "Porto", logo: "https://i.ibb.co/7f7rLHz/PORTO.png" },
+            { nombre: "Ajax", logo: "https://i.ibb.co/bg7zDycy/AJAX.png" },
+            { nombre: "Shakhtar Donetsk", logo: "https://i.ibb.co/VYRRn81p/SHAKHTAR.png" },
+            { nombre: "Celtic", logo: "https://i.ibb.co/G30kNvRL/CELTIC.png" },
+            { nombre: "Rangers", logo: "https://i.ibb.co/DfD0247k/RANGER.png" },
+            { nombre: "Galatasaray", logo: "https://i.ibb.co/dsnW08bR/GALATASARAY.png" },
+            { nombre: "Fenerbahçe", logo: "https://i.ibb.co/Q3S0BN82/FENERBA.png" },
+            { nombre: "Olympiakos", logo: "https://i.ibb.co/zhGvQGwy/Olympiacos.png" },
+            { nombre: "Dinamo Kiev", logo: "https://i.ibb.co/BKHd0fQ2/DINAMO-KIEV.png" },
+            { nombre: "Red Bull Salzburg", logo: "https://i.ibb.co/5hn4v5Gp/Red-Bull-Salzburg.png" },
+            { nombre: "Sporting de Lisboa", logo: "https://i.ibb.co/JW8msbgK/Sporting-de-Lisboa.png" },
+            { nombre: "PSV Eindhoven", logo: "https://i.ibb.co/HLZKbrBc/25.png" },
+            { nombre: "Napoli", logo: "https://i.ibb.co/1tYXmWYT/Napoli.png" },
+            { nombre: "Roma", logo: "https://i.ibb.co/gZL9cdDb/Roma.png" },
+            { nombre: "Lazio", logo: "https://i.ibb.co/gM2BJQQN/Lazio.png" },
+            { nombre: "Copenhague", logo: "https://i.ibb.co/5WBwS3RD/29.png" }
+        ];
+
+        // Inicializar conteo de equipos desde localStorage
         let conteoEquipos = JSON.parse(localStorage.getItem('conteoEquipos')) || {};
-        const equiposChampions =
-    
-            // Equipos de la Champions League con logos
-            const equiposChampions = [
-                { nombre: "Real Madrid", logo: "https://i.ibb.co/twrzCVXf/real-madrid.png" },
-                { nombre: "Barcelona", logo: "https://i.ibb.co/pjm42BkC/BARCELONA.png" },
-                { nombre: "Bayern Múnich", logo: "https://i.ibb.co/mChM8rpX/BAYER.png" },
-                { nombre: "Manchester City", logo: "https://i.ibb.co/RpnbGQnK/MANCHESTER-CITY.png" },
-                { nombre: "Liverpool", logo: "https://i.ibb.co/k250tfJM/liverpool.png" },
-                { nombre: "PSG", logo: "https://i.ibb.co/yBGv9gnF/psg.png" },
-                { nombre: "Chelsea", logo: "https://i.ibb.co/rGF0gmp0/CHELSEA.png" },
-                { nombre: "Inter de Milán", logo: "https://i.ibb.co/Tx0SSZS4/INTER-DE-MLINA.png" },
-                { nombre: "AC Milan", logo: "https://i.ibb.co/ZRgGJtrJ/ACM.png" },
-                { nombre: "Juventus", logo: "https://i.ibb.co/WWZMvzRs/JUVENTUS.png" },
-                { nombre: "Arsenal", logo: "https://i.ibb.co/603grPvX/8.png" },
-                { nombre: "Borussia Dortmund", logo: "https://i.ibb.co/HDzfMj9G/BORUSSIA.png" },
-                { nombre: "Atlético de Madrid", logo: "https://i.ibb.co/4nMyxY4c/ATLETICO.png" },
-                { nombre: "Sevilla", logo: "https://i.ibb.co/N6jGQB4Y/SEVILLA.png" },
-                { nombre: "RB Leipzig", logo: "https://i.ibb.co/HfDtRrKB/RB-LEIPZIONG.png" },
-                { nombre: "Benfica", logo: "https://i.ibb.co/218WL3tN/BENFICA.png" },
-                { nombre: "Porto", logo: "https://i.ibb.co/7f7rLHz/PORTO.png" },
-                { nombre: "Ajax", logo: "https://i.ibb.co/bg7zDycy/AJAX.png" },
-                { nombre: "Shakhtar Donetsk", logo: "https://i.ibb.co/VYRRn81p/SHAKHTAR.png" },
-                { nombre: "Celtic", logo: "https://i.ibb.co/G30kNvRL/CELTIC.png" },
-                { nombre: "Rangers", logo: "https://i.ibb.co/DfD0247k/RANGER.png" },
-                { nombre: "Galatasaray", logo: "https://i.ibb.co/dsnW08bR/GALATASARAY.png" },
-                { nombre: "Fenerbahçe", logo: "https://i.ibb.co/Q3S0BN82/FENERBA.png" },
-                { nombre: "Olympiakos", logo: "https://i.ibb.co/zhGvQGwy/Olympiacos.png" },
-                { nombre: "Dinamo Kiev", logo: "https://i.ibb.co/BKHd0fQ2/DINAMO-KIEV.png" },
-                { nombre: "Red Bull Salzburg", logo: "https://i.ibb.co/5hn4v5Gp/Red-Bull-Salzburg.png" },
-                { nombre: "Sporting de Lisboa", logo: "https://i.ibb.co/JW8msbgK/Sporting-de-Lisboa.png" },
-                { nombre: "PSV Eindhoven", logo: "https://i.ibb.co/HLZKbrBc/25.png" },
-                { nombre: "Napoli", logo: "https://i.ibb.co/1tYXmWYT/Napoli.png" },
-                { nombre: "Roma", logo: "https://i.ibb.co/gZL9cdDb/Roma.png" },
-                { nombre: "Lazio", logo: "https://i.ibb.co/gM2BJQQN/Lazio.png" },
-                { nombre: "Copenhague", logo: "https://i.ibb.co/5WBwS3RD/29.png" }
-            ];
-   document.addEventListener('DOMContentLoaded', function() {
-            // Inicialización de equipos
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar equipos si no existen en localStorage
             if (!localStorage.getItem('conteoEquipos')) {
                 equiposChampions.forEach(equipo => {
                     conteoEquipos[equipo.nombre] = 0;
@@ -713,52 +767,10 @@
                 localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
             }
             
+            // Cargar equipos disponibles
             actualizarEquiposDisponibles();
-    }
-});
-        function actualizarEquiposDisponibles() {
-            // Cargar equipos en el grid y en el select
-            const teamsGrid = document.getElementById('teams-grid');
-            const selectEquipo = document.getElementById('equipo');
-            teamsGrid.innerHTML = '';
-            selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
-            const equipoCounter = document.getElementById('equipo-counter');
-            // Eliminar equipos con 5+ selecciones
-    Object.entries(conteoEquipos).forEach(([equipo, count]) => {
-        if (count >= 5){
-        }
-    });
-    equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
-}
-            eequiposChampions.forEach(equipo => {
-                if (conteoEquipos[equipo.nombre] < 5) {
-                    // Agregar al grid
-                    const teamCard = document.createElement('div');
-                    teamCard.className = 'team-card';
-                    teamCard.innerHTML = `
-                        <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
-                        <div class="team-name">${equipo.nombre}</div>
-                    `;
-                    teamsGrid.appendChild(teamCard);
-
-                    // Agregar al select
-                    const option = document.createElement('option');
-                    option.value = equipo.nombre;
-                    option.textContent = equipo.nombre;
-                    selectEquipo.appendChild(option);
-                }
-            });
-        document.getElementById('equipo-counter').textContent = 
-                `Equipos disponibles: ${selectEquipo.options.length - 1}`;
-        }
-
-            // Contador de equipos seleccionados
-            let conteoEquipos = {};
-            equiposChampions.forEach(equipo => {
-                conteoEquipos[equipo.nombre] = 0;
-            });
-
-            // Mostrar información de pago según método seleccionado
+            
+            // Configurar el método de pago
             const metodoPagoSelect = document.getElementById('metodo-pago');
             const pagoInfo = document.getElementById('pago-info');
             const paymentMethods = document.querySelectorAll('.payment-method');
@@ -781,9 +793,9 @@
                 }
             });
 
-            // Contador regresivo
+            // Configurar el contador regresivo
             const countdownTimer = document.getElementById('countdown-timer');
-            const fechaLimite = new Date(2025, 04, 17, 23, 59);
+            const fechaLimite = new Date(2025, 4, 17, 23, 59); // 17 de Mayo 2025
             
             function actualizarCountdown() {
                 const ahora = new Date();
@@ -806,7 +818,7 @@
             actualizarCountdown();
 
             // Manejar el envío del formulario
-             const registrationForm = document.getElementById('registration-form');
+            const registrationForm = document.getElementById('registration-form');
             
             registrationForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -814,52 +826,18 @@
                 const formData = new FormData(this);
                 const equipoSeleccionado = formData.get('equipo');
 
-                // Validación de equipo disponible
+                // Validar que el equipo esté disponible
                 if (conteoEquipos[equipoSeleccionado] >= 5) {
-                    alert('Este equipo ya no está disponible');
+                    alert('Este equipo ya no está disponible. Por favor selecciona otro.');
                     return;
                 }
-    
-    // 1. Primero ejecutar la lógica de equipos
-     const equipoSeleccionado = selectEquipo.value;
-    
-    // Verificar si el equipo ya está eliminado
-    if (!conteoEquipos[equipoSeleccionado]) {
-        alert('Este equipo ya no está disponible');
-        return;
-    }
 
-    conteoEquipos[equipoSeleccionado]++;
-    localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
+                // Incrementar el conteo del equipo seleccionado
+                conteoEquipos[equipoSeleccionado]++;
+                localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
 
-    
-    if (conteoEquipos[equipoSeleccionado] >= 5) {
-        // Eliminar del select
-        const options = Array.from(selectEquipo.options);
-        const optionIndex = options.findIndex(opt => opt.value === equipoSeleccionado);
-        if (optionIndex > -1) {
-            selectEquipo.remove(optionIndex);
-        }
-        
-        // Eliminar del grid
-        document.querySelectorAll('.team-card').forEach(card => {
-            if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
-                card.remove();
-            }
-        });
-        
-        // Actualizar contador
-        equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
-    }
-       function configurarFormulario() {
-            const form = document.getElementById('registration-form');
-            
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const formData =          
-
-    // 2. Enviar a Formspark
-try {
+                try {
+                    // Enviar datos a Formspree
                     const response = await fetch(this.action, {
                         method: 'POST',
                         body: formData,
@@ -869,115 +847,55 @@ try {
                     });
 
                     if (response.ok) {
-                        alert('Inscripción exitosa!');
+                        alert('Inscripción exitosa! Nos pondremos en contacto contigo pronto.');
                         this.reset();
                         document.getElementById('pago-info').style.display = 'none';
                         actualizarEquiposDisponibles();
                     } else {
-                        alert('Error al enviar el formulario');
+                        throw new Error('Error en el servidor');
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('Error de conexión');
+                    alert('Hubo un error al enviar tu inscripción. Por favor inténtalo de nuevo más tarde.');
+                }
+            });
+        });
+
+        function actualizarEquiposDisponibles() {
+            const teamsGrid = document.getElementById('teams-grid');
+            const selectEquipo = document.getElementById('equipo');
+            
+            // Limpiar listados
+            teamsGrid.innerHTML = '';
+            selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
+
+            // Contador de equipos disponibles
+            let equiposDisponibles = 0;
+
+            equiposChampions.forEach(equipo => {
+                if (conteoEquipos[equipo.nombre] < 5) {
+                    equiposDisponibles++;
+                    
+                    // Agregar al grid
+                    const teamCard = document.createElement('div');
+                    teamCard.className = 'team-card';
+                    teamCard.innerHTML = `
+                        <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
+                        <div class="team-name">${equipo.nombre}</div>
+                    `;
+                    teamsGrid.appendChild(teamCard);
+
+                    // Agregar al select
+                    const option = document.createElement('option');
+                    option.value = equipo.nombre;
+                    option.textContent = equipo.nombre;
+                    selectEquipo.appendChild(option);
                 }
             });
 
-    // Envío a Formspark
-    try {
-        const response = await fetch(this.action, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                nombre: this.nombre.value,
-                telefono: this.telefono.value,
-                equipo: this.equipo.value,
-                metodoPago: this['metodo-pago'].value,
-                referencia: this.referencia.value,
-                terminos: this.terminos.checked
-            })
-        });
-
-        if (response.ok) {
-            alert('Inscripción exitosa!');
-            this.reset();
-            pagoInfo.style.display = 'none';
-        } else {
-            alert('Error al enviar el formulario');
+            // Actualizar contador
+            document.getElementById('equipo-counter').textContent = `Equipos disponibles: ${equiposDisponibles}`;
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error de conexión');
-    }
-});
-                // Aquí normalmente enviarías los datos a un servidor
-                // Para este ejemplo, mostramos un alert
-                alert('Inscripción recibida! Te contactaremos pronto.');
-                
-                // Resetear formulario
-                this.reset();
-                pagoInfo.style.display = 'none';
-            });
-        });
     </script>
-     <!-- Botón flotante de WhatsApp -->
-  <a href="https://wa.me/573027530234" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
-    <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp">
-  </a>
-
-  <style>
-    .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: #FFF;
-      border-radius: 50px;
-      text-align: center;
-      font-size: 30px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulse 1.5s infinite;
-      transition: all 0.3s ease;
-    }
-
-    .whatsapp-float:hover {
-      background-color: #128C7E;
-      transform: scale(1.1);
-    }
-
-    .whatsapp-float img {
-      width: 40px;
-      height: 40px;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
-
-    @media (max-width: 768px) {
-      .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        bottom: 15px;
-        right: 15px;
-      }
-      
-      .whatsapp-float img {
-        width: 30px;
-        height: 30px;
-      }
-    }
-     
-  </style>
 </body>
 </html>
