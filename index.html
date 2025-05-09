@@ -639,26 +639,13 @@
                     <p><i class="fas fa-envelope"></i> registronemesis@hotmail.com</p>
                     <p><i class="fas fa-phone"></i> +57 3027530234</p>
                 </div>
-                <div class="social-icons">
-    <a href="https://www.facebook.com/Nemesixpert" class="social-icon" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    
-    <a href="https://twitter.com/tucuenta" class="social-icon" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-twitter"></i>
-    </a>
-    
-    <a href="https://www.instagram.com/nemesis_xpert" class="social-icon" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-instagram"></i>
-    </a>
-        
-    <a href="https://www.youtube.com/channel/UCRBh15x2bBF5MlU5qOlM2Lg" class="social-icon" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-youtube"></i>
-    </a>
-    
-    <a href="https://www.tiktok.com/@nemesisxpert" class="social-icon" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-tiktok"></i>
-    </a>
+                <div class="social-links">
+                    <h3>Síguenos</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitch"></i></a>
                     </div>
                 </div>
             </div>
@@ -784,11 +771,8 @@
             // Manejar el envío del formulario
             const registrationForm = document.getElementById('registration-form');
 
-            <form 
-    id="registration-form" 
-    class="registration-form"
-    action="https://formspree.io/f/xwpobdyg" 
-    method="POST"
+            registrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
                 // Actualizar conteo de equipos seleccionados
                 const equipoSeleccionado = selectEquipo.value;
