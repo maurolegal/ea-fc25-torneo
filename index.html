@@ -666,6 +666,9 @@
     </footer>
 
     <script>
+        let conteoEquipos = JSON.parse(localStorage.getItem('conteoEquipos')) || {};
+        localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Equipos de la Champions League con logos
             const equiposChampions = [
@@ -702,12 +705,23 @@
                 { nombre: "Lazio", logo: "https://i.ibb.co/gM2BJQQN/Lazio.png" },
                 { nombre: "Copenhague", logo: "https://i.ibb.co/5WBwS3RD/29.png" }
             ];
-
+   if (localStorage.getItem('conteoEquipos')) {
+        conteoEquipos = JSON.parse(localStorage.getItem('conteoEquipos'));
+        actualizarEquiposDisponibles();
+    }
+});
+        function actualizarEquiposDisponibles() {
             // Cargar equipos en el grid y en el select
             const teamsGrid = document.getElementById('teams-grid');
             const selectEquipo = document.getElementById('equipo');
             const equipoCounter = document.getElementById('equipo-counter');
-            
+            // Eliminar equipos con 5+ selecciones
+    Object.entries(conteoEquipos).forEach(([equipo, count]) => {
+        if (count >= 5){
+        }
+    });
+    equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
+}
             equiposChampions.forEach(equipo => {
                 // Para el grid
                 const teamCard = document.createElement('div');
@@ -784,32 +798,68 @@
            registrationForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-      // Actualizar conteo de equipos seleccionados
-                const equipoSeleccionado = selectEquipo.value;
-                conteoEquipos[equipoSeleccionado]++;
-                
-                // Verificar si el equipo ha sido seleccionado 5 veces
-                if (conteoEquipos[equipoSeleccionado] >= 5) {
-                    // Eliminar el equipo de la lista
-                    const options = selectEquipo.options;
-                    for (let i = 0; i < options.length; i++) {
-                        if (options[i].value === equipoSeleccionado) {
-                            selectEquipo.remove(i);
-                            break;
-                        }
-                    }
-                    
-                    // Actualizar contador
-                    equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
-                    
-                    // Eliminar también del grid (opcional)
-                    const teamCards = document.querySelectorAll('.team-card');
-                    teamCards.forEach(card => {
-                        if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
-                            card.style.display = 'none';
-                        }
-                    });
-                }
+    // 1. Primero ejecutar la lógica de equipos
+     const equipoSeleccionado = selectEquipo.value;
+    
+    // Verificar si el equipo ya está eliminado
+    if (!conteoEquipos[equipoSeleccionado]) {
+        alert('Este equipo ya no está disponible');
+        return;
+    }
+
+    conteoEquipos[equipoSeleccionado]++;
+    
+    if (conteoEquipos[equipoSeleccionado] >= 5) {
+        // Eliminar del select
+        const options = Array.from(selectEquipo.options);
+        const optionIndex = options.findIndex(opt => opt.value === equipoSeleccionado);
+        if (optionIndex > -1) {
+            selectEquipo.remove(optionIndex);
+        }
+        
+        // Eliminar del grid
+        document.querySelectorAll('.team-card').forEach(card => {
+            if (card.querySelector('.team-name').textContent === equipoSeleccionado) {
+                card.remove();
+            }
+        });
+        
+        // Actualizar contador
+        equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
+    }
+
+    // 2. Enviar a Formspark
+    try {
+        const formData = {
+            nombre: this.nombre.value,
+            telefono: this.telefono.value,
+            equipo: equipoSeleccionado,
+            metodoPago: this['metodo-pago'].value,
+            referencia: this.referencia.value,
+            terminos: this.terminos.checked
+        };
+
+        const response = await fetch(this.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+            alert('Inscripción exitosa!');
+            this.reset();
+            pagoInfo.style.display = 'none';
+            
+            // 3. Forzar actualización visual
+            selectEquipo.dispatchEvent(new Event('change'));
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al enviar el formulario');
+    }
+});
 
     // Envío a Formspark
     try {
@@ -906,6 +956,7 @@
         height: 30px;
       }
     }
+     
   </style>
 </body>
 </html>
