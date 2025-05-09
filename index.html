@@ -8,102 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00f7ff;
+            --primary: #00fffc;
             --secondary: #ff00f7;
-            --dark: #020000;
-            --light: #f7fff0;
-            --accent: #ffe100;
+            --dark: #0c1020;
+            --light: #f0f8ff;
+            --accent: #ffcc00;
         }
-
-        .tournament-details {
-    padding: 60px 0;
-    background: rgba(5, 10, 25, 0.7);
-    backdrop-filter: blur(5px);
-    border-top: 1px solid rgba(0, 255, 252, 0.2);
-    border-bottom: 1px solid rgba(0, 255, 252, 0.2);
-}
-.tournament-details .section-title {
-    text-align: center;
-    left: 0;
-    transform: none;
-    width: 100%;
-    display: block;
-}
-.details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin: 30px 0;
-}
-
-.detail-card {
-    background: rgba(10, 15, 40, 0.7);
-    border: 1px solid rgba(0, 255, 252, 0.2);
-    border-radius: 10px;
-    padding: 25px;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.detail-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 255, 252, 0.2);
-    border-color: var(--primary);
-}
-
-.detail-card i {
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 15px;
-    display: block;
-}
-
-.detail-card h3 {
-    color: var(--primary);
-    margin-bottom: 15px;
-    font-family: 'Russo One', sans-serif;
-}
-
-.detail-card p {
-    margin-bottom: 8px;
-    line-height: 1.5;
-}
-
-.important-notes {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 25px;
-    border-radius: 10px;
-    border-left: 4px solid var(--accent);
-    margin-top: 30px;
-}
-
-.important-notes h3 {
-    color: var(--accent);
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.important-notes ul {
-    padding-left: 20px;
-}
-
-.important-notes li {
-    margin-bottom: 10px;
-    line-height: 1.6;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .details-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .detail-card {
-        padding: 20px;
-    }
-}
 
         * {
             margin: 0;
@@ -268,6 +178,80 @@
             left: 100%;
         }
 
+        /* Sección de Detalles del Torneo */
+        .tournament-details {
+            padding: 60px 0;
+            background: rgba(5, 10, 25, 0.7);
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(0, 255, 252, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 252, 0.2);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .detail-card {
+            background: rgba(10, 15, 40, 0.7);
+            border: 1px solid rgba(0, 255, 252, 0.2);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 252, 0.2);
+            border-color: var(--primary);
+        }
+
+        .detail-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .detail-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .detail-card p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .important-notes {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            margin-top: 30px;
+        }
+
+        .important-notes h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .important-notes ul {
+            padding-left: 20px;
+        }
+
+        .important-notes li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
         /* Sección de equipos con grid responsive */
         .teams-section {
             padding: 60px 0;
@@ -332,6 +316,51 @@
             font-weight: bold;
         }
 
+        .team-counter {
+            font-size: 0.7rem;
+            color: var(--accent);
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .counter {
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        /* Estilos para equipos completados */
+.team-card[data-completo="true"] {
+    opacity: 0.6;
+    filter: grayscale(50%);
+    pointer-events: none;
+}
+/* Estilo para torneo completo */
+.torneo-completo {
+    color: #ff5555 !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: pulse-alert 1.5s infinite;
+}
+@keyframes pulse-alert {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Mejoras para el contador */
+.counter {
+    padding: 10px;
+    margin: 15px 0;
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+}
+
         /* Formulario estilo futurista */
         .registration-section {
             padding: 80px 0;
@@ -359,17 +388,18 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            display: block;
+            width: 100%;
+            padding-bottom: 15px;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
             height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: 3px;
@@ -472,6 +502,60 @@
             box-shadow: 0 5px 15px rgba(0, 255, 252, 0.4);
         }
 
+        /* Modal de confirmación */
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(10, 15, 40, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 252, 0.3);
+        }
+
+        .modal-content h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .modal-content p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .whatsapp-button {
+            display: inline-block;
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
         /* Footer estilo cyber */
         footer {
             background: linear-gradient(180deg, rgba(0,15,30,0.9) 0%, rgba(0,0,20,1) 100%);
@@ -551,59 +635,6 @@
             }
         }
 
-        /* Responsive para móviles */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .hero {
-                padding: 70px 0;
-            }
-
-            .teams-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
-
-            .team-logo {
-                width: 80px;
-                height: 80px;
-            }
-
-            .registration-form {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .teams-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 10px;
-            }
-
-            .team-card {
-                padding: 10px;
-            }
-
-            .team-logo {
-                width: 80px;
-                height: 80px;
-            }
-
-            .team-name {
-                font-size: 0.8rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
         /* Estilos para el botón de WhatsApp */
         .whatsapp-float {
             position: fixed;
@@ -641,7 +672,38 @@
             100% { transform: scale(1); }
         }
 
+        /* Responsive para móviles */
         @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 70px 0;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-card {
+                padding: 20px;
+            }
+
+            .teams-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .team-logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .registration-form {
+                padding: 20px;
+            }
+
             .whatsapp-float {
                 width: 50px;
                 height: 50px;
@@ -654,9 +716,50 @@
                 height: 30px;
             }
         }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .teams-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            .team-card {
+                padding: 10px;
+            }
+
+            .team-logo {
+                width: 80px;
+                height: 80px;
+            }
+
+            .team-name {
+                font-size: 0.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Modal de Confirmación -->
+    <div id="confirmationModal" class="confirmation-modal">
+        <div class="modal-content">
+            <h2>¡Inscripción Exitosa!</h2>
+            <p>Tu registro para el torneo EA FC 25 Champions ha sido recibido correctamente.</p>
+            <p>Por favor envía tu comprobante de pago por WhatsApp para completar tu inscripción.</p>
+            <a href="https://wa.me/573027530234?text=Hola,%20acabo%20de%20inscribirme%20al%20torneo%20EA%20FC%2025%20y%20quiero%20enviar%20mi%20comprobante%20de%20pago" class="whatsapp-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> Enviar Comprobante
+            </a>
+            <button id="closeModal" class="cta-button" style="margin-top: 20px; background: var(--secondary);">Cerrar</button>
+        </div>
+    </div>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -674,54 +777,55 @@
             <h1 class="glow">Torneo EA FC 25 Champions</h1>
             <p>Demuestra quien es el mejor en Valledupar y llevate $ 400.000 pesos para tu casa ¡CAMPEON!</p>
             <a href="#inscripcion" class="cta-button">¡Inscríbete Ahora!</a>
-        
-            <section class="tournament-details">
-    <div class="container">
-        <h2 class="section-title">Detalles del Torneo</h2>
-        <div class="details-grid">
-            <div class="detail-card">
-                <i class="fas fa-trophy"></i>
-                <h3>Formato</h3>
-                <p>32 equipos – ¡Solo los mejores llegarán a la cima!</p>
-                <p>Partidos de 4 minutos – ¡Cada jugada cuenta!</p>
-                <p>SIN RADAR – ¡Aquí juegan los verdaderos cracks!</p>
-            </div>
-            <div class="detail-card">
-                <i class="fas fa-gamepad"></i>
-                <h3>Plataforma</h3>
-                <p>PS5</p>
-                <p>Lugar: Tu sala favorita, NEMESIS XPERT 🕹️🔥</p>
-            </div>
-            <div class="detail-card">
-                <i class="fas fa-calendar-alt"></i>
-                <h3>Fecha y Hora</h3>
-                <p>18 de Mayo | 9:00 AM</p>
-            </div>
-            <div class="detail-card">
-                <i class="fas fa-award"></i>
-                <h3>Premios</h3>
-                <p>🥇 1er Puesto: $400.000</p>
-                <p>🥈 2do Puesto: $100.000</p>
-                <p>🎟️ Inscripción: $30.000</p>
-            </div>
         </div>
-        <div class="important-notes">
-            <h3><i class="fas fa-exclamation-circle"></i> Importante</h3>
-            <ul>
-                <li>Al momento de inscribirte debes seleccionar el equipo con el que jugarás inicialmente.</li>
-                <li>Un mismo equipo solo podrá ser elegido por un máximo de 5 participantes.</li>
-                <li>¡Asegura tu equipo favorito pagando tu inscripción!</li>
-                <li>Más info e inscripciones por DM</li>
-            </ul>
-        </div>
-    </div>
-</section>
+    </section>
+
+    <section class="tournament-details">
+        <div class="container">
+            <h2 class="section-title">Detalles del Torneo</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Formato</h3>
+                    <p>32 equipos – ¡Solo los mejores llegarán a la cima!</p>
+                    <p>Partidos de 4 minutos – ¡Cada jugada cuenta!</p>
+                    <p>SIN RADAR – ¡Aquí juegan los verdaderos cracks!</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Plataforma</h3>
+                    <p>PS5</p>
+                    <p>Lugar: Tu sala favorita, NEMESIS XPERT 🕹️🔥</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Fecha y Hora</h3>
+                    <p>18 de Mayo | 9:00 AM</p>
+                </div>
+                <div class="detail-card">
+                    <i class="fas fa-award"></i>
+                    <h3>Premios</h3>
+                    <p>🥇 1er Puesto: $400.000</p>
+                    <p>🥈 2do Puesto: $100.000</p>
+                    <p>🎟️ Inscripción: $30.000</p>
+                </div>
+            </div>
+            <div class="important-notes">
+                <h3><i class="fas fa-exclamation-circle"></i> Importante</h3>
+                <ul>
+                    <li>Al momento de inscribirte debes seleccionar el equipo con el que jugarás inicialmente.</li>
+                    <li>Un mismo equipo solo podrá ser elegido por un máximo de 5 participantes.</li>
+                    <li>¡Asegura tu equipo favorito pagando tu inscripción!</li>
+                    <li>Más info e inscripciones por DM</li>
+                </ul>
+            </div>
         </div>
     </section>
 
     <section class="teams-section">
         <div class="container">
             <h2 class="section-title">Equipos Disponibles</h2>
+            <div id="equipo-counter" class="counter" style="color: var(--accent);">Equipos disponibles: 32 (160 cupos totales)</div>
             <div class="teams-grid" id="teams-grid">
                 <!-- Equipos se cargarán con JavaScript -->
             </div>
@@ -748,7 +852,6 @@
                         <option value="">Selecciona tu equipo</option>
                         <!-- Equipos se cargarán con JavaScript -->
                     </select>
-                    <div id="equipo-counter" class="counter" style="color: var(--accent); margin-top: 5px;">Equipos disponibles: 32</div>
                 </div>
                 
                 <div class="form-group">
@@ -892,7 +995,7 @@
         
         document.addEventListener('DOMContentLoaded', function() {
             // Inicializar equipos si no existen en localStorage
-            if (!localStorage.getItem('conteoEquipos')) {
+            if (Object.keys(conteoEquipos).length === 0) {
                 equiposChampions.forEach(equipo => {
                     conteoEquipos[equipo.nombre] = 0;
                 });
@@ -925,6 +1028,17 @@
                 }
             });
 
+            // Validación de teléfono (10 dígitos numéricos)
+            const telefonoInput = document.getElementById('telefono');
+            telefonoInput.addEventListener('input', function() {
+                // Eliminar cualquier carácter que no sea número
+                this.value = this.value.replace(/\D/g, '');
+                // Limitar a 10 caracteres
+                if (this.value.length > 10) {
+                    this.value = this.value.slice(0, 10);
+                }
+            });
+
             // Configurar el contador regresivo
             const countdownTimer = document.getElementById('countdown-timer');
             const fechaLimite = new Date(2025, 4, 17, 23, 59); // 17 de Mayo 2025
@@ -951,82 +1065,146 @@
 
             // Manejar el envío del formulario
             const registrationForm = document.getElementById('registration-form');
+            const confirmationModal = document.getElementById('confirmationModal');
+            const closeModal = document.getElementById('closeModal');
             
             registrationForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(this);
-                const equipoSeleccionado = formData.get('equipo');
+    e.preventDefault();
+    
+    // Verificar cupos totales primero
+    const totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
+    if (totalInscritos >= 32) {
+        alert('El torneo ha alcanzado el límite máximo de 32 participantes. ¡Gracias por tu interés!');
+        actualizarEquiposDisponibles();
+        return;
+    }
 
-                // Validar que el equipo esté disponible
-                if (conteoEquipos[equipoSeleccionado] >= 5) {
-                    alert('Este equipo ya no está disponible. Por favor selecciona otro.');
-                    return;
-                }
+    const formData = new FormData(this);
+    const equipoSeleccionado = formData.get('equipo');
 
-                // Incrementar el conteo del equipo seleccionado
-                conteoEquipos[equipoSeleccionado]++;
-                localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
+    // Validar selección de equipo
+    if (!equipoSeleccionado) {
+        alert('Por favor selecciona un equipo válido');
+        return;
+    }
 
-                try {
-                    // Enviar datos a Formspree
-                    const response = await fetch(this.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
+    // Validar cupos por equipo
+    if (conteoEquipos[equipoSeleccionado] >= 5) {
+        alert('Este equipo ya tiene 5 participantes. Por favor selecciona otro equipo.');
+        actualizarEquiposDisponibles();
+        return;
+    }
 
-                    if (response.ok) {
-                        alert('Inscripción exitosa! Nos pondremos en contacto contigo pronto.');
-                        this.reset();
-                        document.getElementById('pago-info').style.display = 'none';
-                        actualizarEquiposDisponibles();
-                    } else {
-                        throw new Error('Error en el servidor');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Hubo un error al enviar tu inscripción. Por favor inténtalo de nuevo más tarde.');
-                }
+    try {
+        // Enviar datos al servidor
+        const response = await fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // Actualizar conteo después de éxito
+            conteoEquipos[equipoSeleccionado]++;
+            localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
+            
+            // Mostrar confirmación
+            confirmationModal.style.display = 'flex';
+            
+            // Resetear formulario
+            this.reset();
+            document.getElementById('pago-info').style.display = 'none';
+            
+            // Actualizar interfaz
+            actualizarEquiposDisponibles();
+        } else {
+            throw new Error('Error en el servidor');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Hubo un problema al enviar tu inscripción. Por favor inténtalo de nuevo o contáctanos por WhatsApp.');
+    }
+});
+
+            // Cerrar modal
+            closeModal.addEventListener('click', function() {
+                confirmationModal.style.display = 'none';
             });
         });
 
         function actualizarEquiposDisponibles() {
-            const teamsGrid = document.getElementById('teams-grid');
-            const selectEquipo = document.getElementById('equipo');
-            
-            // Limpiar listados
-            teamsGrid.innerHTML = '';
-            selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
+    // Obtener conteo actual de participantes
+    conteoEquipos = JSON.parse(localStorage.getItem('conteoEquipos')) || {};
+    
+    const teamsGrid = document.getElementById('teams-grid');
+    const selectEquipo = document.getElementById('equipo');
+    
+    // Limpiar listados anteriores
+    teamsGrid.innerHTML = '';
+    selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
 
-            // Contador de equipos disponibles
-            let equiposDisponibles = 0;
+    // Calcular total de inscritos y cupos disponibles
+    let totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
+    let cuposDisponibles = 32 - totalInscritos;
+    let equiposConCupo = 0;
 
-            equiposChampions.forEach(equipo => {
-                if (conteoEquipos[equipo.nombre] < 5) {
-                    equiposDisponibles++;
-                    
-                    // Agregar al grid
-                    const teamCard = document.createElement('div');
-                    teamCard.className = 'team-card';
-                    teamCard.innerHTML = `
-                        <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
-                        <div class="team-name">${equipo.nombre}</div>
-                    `;
-                    teamsGrid.appendChild(teamCard);
+    // Procesar cada equipo
+    equiposChampions.forEach(equipo => {
+        // Inicializar si no existe
+        if (conteoEquipos[equipo.nombre] === undefined) {
+            conteoEquipos[equipo.nombre] = 0;
+        }
+        
+        const inscritos = conteoEquipos[equipo.nombre];
+        const disponible = (cuposDisponibles > 0) && (inscritos < 5);
+        
+        // Crear tarjeta del equipo
+        const teamCard = document.createElement('div');
+        teamCard.className = 'team-card';
+        
+        // Estilo para equipos completos
+        if (!disponible) {
+            teamCard.style.opacity = '0.6';
+            teamCard.style.filter = 'grayscale(50%)';
+            teamCard.style.pointerEvents = 'none';
+        }
+        
+        teamCard.innerHTML = `
+            <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
+            <div class="team-name">${equipo.nombre}</div>
+            <div class="team-counter">${disponible ? 
+                `(${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})` : 
+                '(COMPLETO)'}
+            </div>
+        `;
+        teamsGrid.appendChild(teamCard);
 
-                    // Agregar al select
-                    const option = document.createElement('option');
-                    option.value = equipo.nombre;
-                    option.textContent = equipo.nombre;
-                    selectEquipo.appendChild(option);
-                }
-            });
+        // Agregar al select solo si hay cupo
+        if (disponible) {
+            equiposConCupo++;
+            const option = document.createElement('option');
+            option.value = equipo.nombre;
+            option.textContent = `${equipo.nombre} (${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})`;
+            selectEquipo.appendChild(option);
+        }
+    });
 
-            // Actualizar contador
-            document.getElementById('equipo-counter').textContent = `Equipos disponibles: ${equiposDisponibles}`;
+    // Actualizar contador general
+    const counterElement = document.getElementById('equipo-counter');
+    if (cuposDisponibles <= 0) {
+        counterElement.textContent = '¡TORNEO COMPLETO! (32/32 participantes)';
+        counterElement.style.color = '#ff5555';
+    } else {
+        counterElement.textContent = `Cupos disponibles: ${cuposDisponibles} de 32`;
+        counterElement.style.color = 'var(--accent)';
+    }
+    
+    // Guardar datos actualizados
+    localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
+    
+    return cuposDisponibles;
         }
     </script>
 </body>
