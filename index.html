@@ -549,8 +549,6 @@
         <div class="container">
             <h2 class="section-title">Formulario de Inscripción</h2>
             <form id="registration-form" class="registration-form">
-                action="https://formspree.io/f/xwpobdyg"
-                method="POST"
                 <div class="form-group">
                     <label for="nombre"><i class="fas fa-user"></i> Nombre y Apellido*</label>
                     <input type="text" id="nombre" name="nombre" required>
@@ -785,7 +783,28 @@
 
             registrationForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+                try {
+        const response = await fetch(this.action, {
+            method: 'POST',
+            body: new FormData(this),
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            // Mostrar modal de éxito
+            successModal.style.display = 'flex';
+            this.reset();
+            pagoInfo.style.display = 'none';
+        } else {
+            const errorData = await response.json();
+            alert(`Error: ${errorData.error}`);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error de conexión');
+    }
                 // Actualizar conteo de equipos seleccionados
                 const equipoSeleccionado = selectEquipo.value;
                 conteoEquipos[equipoSeleccionado]++;
