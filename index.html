@@ -851,6 +851,12 @@
         // Actualizar contador
         equipoCounter.textContent = `Equipos disponibles: ${selectEquipo.options.length - 1}`;
     }
+       function configurarFormulario() {
+            const form = document.getElementById('registration-form');
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData =          
 
     // 2. Enviar a Formspark
 try {
