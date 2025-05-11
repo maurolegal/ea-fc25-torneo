@@ -6,6 +6,14 @@
     <title>Torneo EA FC 25 | Champions Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
+    <!-- Add Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://buwadgynxvxujcznzsut.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1d2FkZ3lueHZ4dWpjem56c3V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NzE0NjcsImV4cCI6MjA2MjU0NzQ2N30.N0ZC-GYtoEc32PGzSLzscbDHZImiUaQ221nc_GFRXsI'
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+    </script>
     <style>
         :root {
             --primary: #00fffc;
@@ -944,7 +952,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Torneo EA FC 25 Champions. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Torneo EA FC 25 Champions. Todos los derechos reservados. | Desarrollado por <a href="https://chat.whatsapp.com/KlRVFUz0Z6h4YsxsDYGwXB" target="_blank" rel="noopener noreferrer">Nemesis Xpert</a></p>
             </div>
         </div>
     </footer>
@@ -990,20 +998,52 @@
             { nombre: "Copenhague", logo: "https://i.ibb.co/5WBwS3RD/29.png" }
         ];
 
-        // Inicializar conteo de equipos desde localStorage
-        let conteoEquipos = JSON.parse(localStorage.getItem('conteoEquipos')) || {};
+        // Initialize team counts from Supabase
+        let conteoEquipos = {};
         
-        document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar equipos si no existen en localStorage
-            if (Object.keys(conteoEquipos).length === 0) {
-                equiposChampions.forEach(equipo => {
-                    conteoEquipos[equipo.nombre] = 0;
-                });
-                localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
-            }
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Verify and ensure all teams are loaded
+            await verificarEquiposEnTeamCounts();
             
-            // Cargar equipos disponibles
-            actualizarEquiposDisponibles();
+            // Fetch team counts from Supabase
+            try {
+                const { data: teamCounts, error } = await supabase
+                    .from('team_counts')
+                    .select('*');
+                
+                if (error) throw error;
+                
+                // Initialize counts
+                if (teamCounts.length === 0) {
+                    // First time setup - create initial counts
+                    const initialCounts = equiposChampions.map(equipo => ({
+                        team_name: equipo.nombre,
+                        count: 0
+                    }));
+                    
+                    const { error: insertError } = await supabase
+                        .from('team_counts')
+                        .insert(initialCounts);
+                    
+                    if (insertError) throw insertError;
+                    
+                    // Initialize local counts
+                    equiposChampions.forEach(equipo => {
+                        conteoEquipos[equipo.nombre] = 0;
+                    });
+                } else {
+                    // Load existing counts
+                    teamCounts.forEach(count => {
+                        conteoEquipos[count.team_name] = count.count;
+                    });
+                }
+                
+                // Load available teams
+                actualizarEquiposDisponibles();
+            } catch (error) {
+                console.error('Error loading team counts:', error);
+                alert('Error al cargar los datos. Por favor recarga la página.');
+            }
             
             // Configurar el método de pago
             const metodoPagoSelect = document.getElementById('metodo-pago');
@@ -1063,70 +1103,77 @@
             setInterval(actualizarCountdown, 1000);
             actualizarCountdown();
 
-            // Manejar el envío del formulario
+            // Update form submission
             const registrationForm = document.getElementById('registration-form');
             const confirmationModal = document.getElementById('confirmationModal');
             const closeModal = document.getElementById('closeModal');
             
             registrationForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Verificar cupos totales primero
-    const totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
-    if (totalInscritos >= 32) {
-        alert('El torneo ha alcanzado el límite máximo de 32 participantes. ¡Gracias por tu interés!');
-        actualizarEquiposDisponibles();
-        return;
-    }
+                e.preventDefault();
+                
+                // Verify total slots
+                const totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
+                if (totalInscritos >= 32) {
+                    alert('El torneo ha alcanzado el límite máximo de 32 participantes. ¡Gracias por tu interés!');
+                    actualizarEquiposDisponibles();
+                    return;
+                }
 
-    const formData = new FormData(this);
-    const equipoSeleccionado = formData.get('equipo');
+                const formData = new FormData(this);
+                const equipoSeleccionado = formData.get('equipo');
 
-    // Validar selección de equipo
-    if (!equipoSeleccionado) {
-        alert('Por favor selecciona un equipo válido');
-        return;
-    }
+                // Validate team selection
+                if (!equipoSeleccionado) {
+                    alert('Por favor selecciona un equipo válido');
+                    return;
+                }
 
-    // Validar cupos por equipo
-    if (conteoEquipos[equipoSeleccionado] >= 5) {
-        alert('Este equipo ya tiene 5 participantes. Por favor selecciona otro equipo.');
-        actualizarEquiposDisponibles();
-        return;
-    }
+                // Validate team slots
+                if (conteoEquipos[equipoSeleccionado] >= 5) {
+                    alert('Este equipo ya tiene 5 participantes. Por favor selecciona otro equipo.');
+                    actualizarEquiposDisponibles();
+                    return;
+                }
 
-    try {
-        // Enviar datos al servidor
-        const response = await fetch(this.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
+                try {
+                    // Save registration to Supabase
+                    const { data: registration, error: registrationError } = await supabase
+                        .from('registrations')
+                        .insert([{
+                            nombre: formData.get('nombre'),
+                            telefono: formData.get('telefono'),
+                            equipo: equipoSeleccionado,
+                            metodo_pago: formData.get('metodo-pago'),
+                            referencia_pago: formData.get('referencia')
+                        }]);
 
-        if (response.ok) {
-            // Actualizar conteo después de éxito
-            conteoEquipos[equipoSeleccionado]++;
-            localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
-            
-            // Mostrar confirmación
-            confirmationModal.style.display = 'flex';
-            
-            // Resetear formulario
-            this.reset();
-            document.getElementById('pago-info').style.display = 'none';
-            
-            // Actualizar interfaz
-            actualizarEquiposDisponibles();
-        } else {
-            throw new Error('Error en el servidor');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Hubo un problema al enviar tu inscripción. Por favor inténtalo de nuevo o contáctanos por WhatsApp.');
-    }
-});
+                    if (registrationError) throw registrationError;
+
+                    // Update team count
+                    const { error: updateError } = await supabase
+                        .from('team_counts')
+                        .update({ count: conteoEquipos[equipoSeleccionado] + 1 })
+                        .eq('team_name', equipoSeleccionado);
+
+                    if (updateError) throw updateError;
+
+                    // Update local count
+                    conteoEquipos[equipoSeleccionado]++;
+                    
+                    // Show confirmation
+                    confirmationModal.style.display = 'flex';
+                    
+                    // Reset form
+                    this.reset();
+                    document.getElementById('pago-info').style.display = 'none';
+                    
+                    // Update interface
+                    actualizarEquiposDisponibles();
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Hubo un problema al enviar tu inscripción. Por favor inténtalo de nuevo o contáctanos por WhatsApp.');
+                }
+            });
 
             // Cerrar modal
             closeModal.addEventListener('click', function() {
@@ -1134,77 +1181,131 @@
             });
         });
 
-        function actualizarEquiposDisponibles() {
-    // Obtener conteo actual de participantes
-    conteoEquipos = JSON.parse(localStorage.getItem('conteoEquipos')) || {};
-    
-    const teamsGrid = document.getElementById('teams-grid');
-    const selectEquipo = document.getElementById('equipo');
-    
-    // Limpiar listados anteriores
-    teamsGrid.innerHTML = '';
-    selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
+        async function actualizarEquiposDisponibles() {
+            try {
+                // Fetch latest counts from Supabase
+                const { data: teamCounts, error } = await supabase
+                    .from('team_counts')
+                    .select('*');
+                
+                if (error) throw error;
+                
+                // Update local counts
+                teamCounts.forEach(count => {
+                    conteoEquipos[count.team_name] = count.count;
+                });
+                
+                const teamsGrid = document.getElementById('teams-grid');
+                const selectEquipo = document.getElementById('equipo');
+                
+                // Clear previous listings
+                teamsGrid.innerHTML = '';
+                selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
 
-    // Calcular total de inscritos y cupos disponibles
-    let totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
-    let cuposDisponibles = 32 - totalInscritos;
-    let equiposConCupo = 0;
+                // Calculate totals
+                let totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
+                let cuposDisponibles = 32 - totalInscritos;
+                let equiposConCupo = 0;
 
-    // Procesar cada equipo
-    equiposChampions.forEach(equipo => {
-        // Inicializar si no existe
-        if (conteoEquipos[equipo.nombre] === undefined) {
-            conteoEquipos[equipo.nombre] = 0;
+                // Process each team
+                equiposChampions.forEach(equipo => {
+                    const inscritos = conteoEquipos[equipo.nombre] || 0;
+                    const disponible = (cuposDisponibles > 0) && (inscritos < 5);
+                    
+                    // Create team card
+                    const teamCard = document.createElement('div');
+                    teamCard.className = 'team-card';
+                    
+                    if (!disponible) {
+                        teamCard.style.opacity = '0.6';
+                        teamCard.style.filter = 'grayscale(50%)';
+                        teamCard.style.pointerEvents = 'none';
+                    }
+                    
+                    teamCard.innerHTML = `
+                        <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
+                        <div class="team-name">${equipo.nombre}</div>
+                        <div class="team-counter">${disponible ? 
+                            `(${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})` : 
+                            '(COMPLETO)'}
+                        </div>
+                    `;
+                    teamsGrid.appendChild(teamCard);
+
+                    // Add to select if available
+                    if (disponible) {
+                        equiposConCupo++;
+                        const option = document.createElement('option');
+                        option.value = equipo.nombre;
+                        option.textContent = `${equipo.nombre} (${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})`;
+                        selectEquipo.appendChild(option);
+                    }
+                });
+
+                // Update counter
+                const counterElement = document.getElementById('equipo-counter');
+                if (cuposDisponibles <= 0) {
+                    counterElement.textContent = '¡TORNEO COMPLETO! (32/32 participantes)';
+                    counterElement.style.color = '#ff5555';
+                } else {
+                    counterElement.textContent = `Cupos disponibles: ${cuposDisponibles} de 32`;
+                    counterElement.style.color = 'var(--accent)';
+                }
+                
+                return cuposDisponibles;
+            } catch (error) {
+                console.error('Error updating available teams:', error);
+                alert('Error al actualizar los equipos disponibles. Por favor recarga la página.');
+                return 0;
+            }
         }
-        
-        const inscritos = conteoEquipos[equipo.nombre];
-        const disponible = (cuposDisponibles > 0) && (inscritos < 5);
-        
-        // Crear tarjeta del equipo
-        const teamCard = document.createElement('div');
-        teamCard.className = 'team-card';
-        
-        // Estilo para equipos completos
-        if (!disponible) {
-            teamCard.style.opacity = '0.6';
-            teamCard.style.filter = 'grayscale(50%)';
-            teamCard.style.pointerEvents = 'none';
-        }
-        
-        teamCard.innerHTML = `
-            <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
-            <div class="team-name">${equipo.nombre}</div>
-            <div class="team-counter">${disponible ? 
-                `(${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})` : 
-                '(COMPLETO)'}
-            </div>
-        `;
-        teamsGrid.appendChild(teamCard);
 
-        // Agregar al select solo si hay cupo
-        if (disponible) {
-            equiposConCupo++;
-            const option = document.createElement('option');
-            option.value = equipo.nombre;
-            option.textContent = `${equipo.nombre} (${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})`;
-            selectEquipo.appendChild(option);
-        }
-    });
+        // Función para verificar y asegurar que todos los equipos estén en team_counts
+        async function verificarEquiposEnTeamCounts() {
+            try {
+                // Obtener todos los equipos actuales en team_counts
+                const { data: teamCounts, error } = await supabase
+                    .from('team_counts')
+                    .select('*');
+                
+                if (error) throw error;
 
-    // Actualizar contador general
-    const counterElement = document.getElementById('equipo-counter');
-    if (cuposDisponibles <= 0) {
-        counterElement.textContent = '¡TORNEO COMPLETO! (32/32 participantes)';
-        counterElement.style.color = '#ff5555';
-    } else {
-        counterElement.textContent = `Cupos disponibles: ${cuposDisponibles} de 32`;
-        counterElement.style.color = 'var(--accent)';
-    }
-    
-    // Guardar datos actualizados
-    localStorage.setItem('conteoEquipos', JSON.stringify(conteoEquipos));
-    
-    return cuposDisponibles;
+                // Crear un mapa de equipos existentes
+                const equiposExistentes = new Map(teamCounts.map(count => [count.team_name, count]));
+
+                // Verificar cada equipo en equiposChampions
+                const equiposFaltantes = equiposChampions.filter(equipo => 
+                    !equiposExistentes.has(equipo.nombre)
+                );
+
+                // Si hay equipos faltantes, insertarlos
+                if (equiposFaltantes.length > 0) {
+                    const nuevosEquipos = equiposFaltantes.map(equipo => ({
+                        team_name: equipo.nombre,
+                        count: 0
+                    }));
+
+                    const { error: insertError } = await supabase
+                        .from('team_counts')
+                        .insert(nuevosEquipos);
+
+                    if (insertError) throw insertError;
+                    console.log(`Se agregaron ${equiposFaltantes.length} equipos faltantes a team_counts`);
+                }
+
+                // Verificar si hay equipos en team_counts que no están en equiposChampions
+                const equiposExtra = teamCounts.filter(count => 
+                    !equiposChampions.some(equipo => equipo.nombre === count.team_name)
+                );
+
+                if (equiposExtra.length > 0) {
+                    console.log('Se encontraron equipos en team_counts que no están en la lista de equipos válidos:', 
+                        equiposExtra.map(e => e.team_name));
+                }
+
+            } catch (error) {
+                console.error('Error al verificar equipos en team_counts:', error);
+            }
         }
     </script>
 </body>
