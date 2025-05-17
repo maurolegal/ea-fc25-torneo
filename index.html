@@ -755,6 +755,21 @@
     </style>
 </head>
 <body>
+    <!-- Modal de Aplazamiento -->
+    <div id="delayModal" class="confirmation-modal" style="display: flex;">
+        <div class="modal-content">
+            <h2>¡Importante!</h2>
+            <img src="https://i.ibb.co/v6sPhydv/o9-NT24k-G-400x400.jpg" alt="Aplazamiento" style="width: 100%; max-width: 300px; border-radius: 10px; margin: 15px auto; display: block;">
+            <p>El torneo se aplaza por trabajos de Afinia (luz) en el sector.</p>
+            <p>La nueva fecha tentativa es el <strong>25 de mayo</strong>.</p>
+            <p>Una disculpa de antemano por los inconvenientes.</p>
+            <a href="#inscripcion" class="whatsapp-button" style="background: var(--primary);" onclick="document.getElementById('delayModal').style.display = 'none';">
+                <i class="fas fa-paper-plane"></i> Inscribirse para la nueva fecha
+            </a>
+            <button id="closeDelayModal" class="cta-button" style="margin-top: 20px; background: var(--secondary);">Cerrar</button>
+        </div>
+    </div>
+
     <!-- Modal de Confirmación -->
     <div id="confirmationModal" class="confirmation-modal">
         <div class="modal-content">
@@ -803,7 +818,8 @@
                     <i class="fas fa-gamepad"></i>
                     <h3>Plataforma</h3>
                     <p>PS5</p>
-                    <p>Lugar: Tu sala favorita, NEMESIS XPERT 🕹️🔥</p>
+                    <p>Lugar: <a href="https://maps.app.goo.gl/THPQS8wryfv1UXdg8" target="_blank" style="color: var(--primary);">Nemesis Xpert</a></p>
+                    <p>Carrera 16 # 11 - 62, Barrio San Joaquín</p>
                 </div>
                 <div class="detail-card">
                     <i class="fas fa-calendar-alt"></i>
@@ -1081,7 +1097,7 @@
 
             // Configurar el contador regresivo
             const countdownTimer = document.getElementById('countdown-timer');
-            const fechaLimite = new Date(2025, 4, 17, 23, 59); // 17 de Mayo 2025
+            const fechaLimite = new Date(2025, 4, 25, 23, 59); // 25 de Mayo 2025 (meses en JS son 0-indexed: 4 = mayo)
             
             function actualizarCountdown() {
                 const ahora = new Date();
@@ -1307,6 +1323,12 @@
                 console.error('Error al verificar equipos en team_counts:', error);
             }
         }
+
+        // Cerrar modal de aplazamiento
+        const closeDelayModal = document.getElementById('closeDelayModal');
+        closeDelayModal.addEventListener('click', function() {
+            document.getElementById('delayModal').style.display = 'none';
+        });
     </script>
 </body>
 </html>
