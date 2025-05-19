@@ -241,6 +241,7 @@
             border-radius: 10px;
             border-left: 4px solid var(--accent);
             margin-top: 30px;
+            text-align: center;
         }
 
         .important-notes h3 {
@@ -249,15 +250,22 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            justify-content: center;
         }
 
         .important-notes ul {
-            padding-left: 20px;
+            padding-left: 0;
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .important-notes li {
             margin-bottom: 10px;
             line-height: 1.6;
+            text-align: left;
+            display: inline-block;
+            width: 100%;
         }
 
         /* Sección de equipos con grid responsive */
@@ -267,13 +275,16 @@
             backdrop-filter: blur(5px);
             border-top: 1px solid rgba(0, 255, 252, 0.2);
             border-bottom: 1px solid rgba(0, 255, 252, 0.2);
+            text-align: center;
         }
 
         .teams-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 15px;
-            margin-top: 30px;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding: 0 15px;
         }
 
         .team-card {
@@ -281,11 +292,9 @@
             border: 1px solid rgba(0, 255, 252, 0.2);
             border-radius: 8px;
             padding: 15px;
-            text-align: center;
             transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            text-align: center;
+            width: 100%;
         }
 
         .team-card::before {
@@ -321,7 +330,11 @@
 
         .team-name {
             font-size: 0.9rem;
-            font-weight: bold;
+            margin: 10px 0;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .team-counter {
@@ -329,6 +342,7 @@
             color: var(--accent);
             margin-top: 5px;
             font-weight: bold;
+            text-align: center;
         }
 
         .counter {
@@ -752,23 +766,69 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .prize-amount {
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            font-size: 1.2em;
+        }
+
+        /* Galería de imágenes */
+        .image-gallery {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(10, 15, 40, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 252, 0.2);
+        }
+
+        .gallery-title {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .image-box {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 252, 0.1);
+        }
+
+        .image-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(0, 255, 252, 0.3);
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Modal de Aplazamiento -->
-    <div id="delayModal" class="confirmation-modal" style="display: flex;">
-        <div class="modal-content">
-            <h2>¡Importante!</h2>
-            <img src="https://i.ibb.co/v6sPhydv/o9-NT24k-G-400x400.jpg" alt="Aplazamiento" style="width: 100%; max-width: 300px; border-radius: 10px; margin: 15px auto; display: block;">
-            <p>El torneo se aplaza por trabajos de Afinia (luz) en el sector.</p>
-            <p>La nueva fecha tentativa es el <strong>25 de mayo</strong>.</p>
-            <p>Una disculpa de antemano por los inconvenientes.</p>
-            <a href="#inscripcion" class="whatsapp-button" style="background: var(--primary);" onclick="document.getElementById('delayModal').style.display = 'none';">
-                <i class="fas fa-paper-plane"></i> Inscribirse para la nueva fecha
-            </a>
-            <button id="closeDelayModal" class="cta-button" style="margin-top: 20px; background: var(--secondary);">Cerrar</button>
-        </div>
-    </div>
+    <!-- Remove the entire delayModal div (lines 1335-1347 in original code) -->
 
     <!-- Modal de Confirmación -->
     <div id="confirmationModal" class="confirmation-modal">
@@ -798,7 +858,7 @@
     <section class="hero">
         <div class="container">
             <h1 class="glow">Torneo EA FC 25 Champions</h1>
-            <p>Demuestra quien es el mejor en Valledupar y llevate $ 400.000 pesos para tu casa ¡CAMPEON!</p>
+            <p>Demuestra quien es el mejor en Valledupar y llevate <span class="prize-amount">$ 400.000</span> pesos para tu casa ¡CAMPEON!</p>
             <a href="#inscripcion" class="cta-button">¡Inscríbete Ahora!</a>
         </div>
     </section>
@@ -834,6 +894,26 @@
                     <p>🎟️ Inscripción: $30.000</p>
                 </div>
             </div>
+            
+            <!-- Nueva sección de fotos -->
+            <div class="image-gallery">
+                <h3 class="gallery-title">Galería del Torneo</h3>
+                <div class="gallery-grid">
+                    <div class="image-box">
+                        <img src="https://i.ibb.co/NgcL0vWF/11.png" alt="Imagen del torneo 1">
+                    </div>
+                    <div class="image-box">
+                        <img src="https://i.ibb.co/Wvv5756R/12.png" alt="Imagen del torneo 2">
+                    </div>
+                    <div class="image-box">
+                        <img src="https://i.ibb.co/W4zyKbXN/13.png" alt="Imagen del torneo 3">
+                    </div>
+                    <div class="image-box">
+                        <img src="https://i.ibb.co/RGPNZwZF/14.png" alt="Imagen del torneo 4">
+                    </div>
+                </div>
+            </div>
+
             <div class="important-notes">
                 <h3><i class="fas fa-exclamation-circle"></i> Importante</h3>
                 <ul>
@@ -849,7 +929,6 @@
     <section class="teams-section">
         <div class="container">
             <h2 class="section-title">Equipos Disponibles</h2>
-            <div id="equipo-counter" class="counter" style="color: var(--accent);">Equipos disponibles: 32 (160 cupos totales)</div>
             <div class="teams-grid" id="teams-grid">
                 <!-- Equipos se cargarán con JavaScript -->
             </div>
@@ -1108,8 +1187,8 @@
                     return;
                 }
                 
-                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 25));
-                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 25)) / (1000 * 60 * 60));
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
                 const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
                 
@@ -1253,21 +1332,11 @@
                         equiposConCupo++;
                         const option = document.createElement('option');
                         option.value = equipo.nombre;
-                        option.textContent = `${equipo.nombre} (${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})`;
+                        option.textContent = `${equipo.nombre}`;
                         selectEquipo.appendChild(option);
                     }
                 });
 
-                // Update counter
-                const counterElement = document.getElementById('equipo-counter');
-                if (cuposDisponibles <= 0) {
-                    counterElement.textContent = '¡TORNEO COMPLETO! (32/32 participantes)';
-                    counterElement.style.color = '#ff5555';
-                } else {
-                    counterElement.textContent = `Cupos disponibles: ${cuposDisponibles} de 32`;
-                    counterElement.style.color = 'var(--accent)';
-                }
-                
                 return cuposDisponibles;
             } catch (error) {
                 console.error('Error updating available teams:', error);
@@ -1323,12 +1392,6 @@
                 console.error('Error al verificar equipos en team_counts:', error);
             }
         }
-
-        // Cerrar modal de aplazamiento
-        const closeDelayModal = document.getElementById('closeDelayModal');
-        closeDelayModal.addEventListener('click', function() {
-            document.getElementById('delayModal').style.display = 'none';
-        });
     </script>
 </body>
 </html>
