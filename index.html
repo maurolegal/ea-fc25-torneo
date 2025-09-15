@@ -469,19 +469,7 @@
             box-shadow: 0 0 10px rgba(0, 255, 252, 0.3);
         }
 
-        .payment-info {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid rgba(255, 0, 247, 0.3);
-<<<<<<< HEAD
-            display: none;
-=======
-            display: none !important; /* siempre oculto mientras pagos estén deshabilitados */
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
-            animation: fadeIn 0.5s ease;
-        }
+    /* (Eliminado bloque de .payment-info al simplificar el formulario) */
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -861,15 +849,9 @@
 
     <section class="hero">
         <div class="container">
-<<<<<<< HEAD
             <h1 class="glow">COPA XPERT 4.0 </h1>
             <p>Inscríbete ya !  y consigue la COPA XPERT 4.0<br>
             Demuestra que eres el mejor. No es solo un torneo, es tu oportunidad de dejar huella.</p>
-=======
-            <h1 class="glow">COPA XPERT 4.0 </h1>
-            <p>Inscríbete ya !  y consigue la COPA XPERT 4.0<br>
-            Demuestra que eres el mejor. No es solo un torneo, es tu oportunidad de dejar huella.</p>
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
             <a href="#inscripcion" class="cta-button">¡Inscríbete Ahora!</a>
         </div>
     </section>
@@ -889,34 +871,19 @@
                     <i class="fas fa-gamepad"></i>
                     <h3>Plataforma</h3>
                     <p>PS5</p>
-<<<<<<< HEAD
                     <p>UNIVERSIDAD POPULAR DEL CESAR</p>
-=======
-                    <p>UNIVERSIDAD POPULAR DEL CESAR</p>
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
                 </div>
                 <div class="detail-card">
                     <i class="fas fa-calendar-alt"></i>
                     <h3>Fecha y Hora</h3>
-<<<<<<< HEAD
                     <p>15 de SEPIEMBRE | 9:00 AM</p>
-=======
-                    <p>15 de SEPIEMBRE | 9:00 AM</p>
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
                 </div>
                 <div class="detail-card">
                     <i class="fas fa-award"></i>
                     <h3>Premios</h3>
-<<<<<<< HEAD
                     <p>TROFEO XPERT 4.0</p>
                 </div>
             </div>
-            
-=======
-                    <p>TROFEO XPERT 4.0</p>
-                </div>
-            </div>
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
             <!-- Nueva sección de fotos -->
             <div class="image-gallery">
                 <h3 class="gallery-title">Galería del Torneo</h3>
@@ -935,10 +902,6 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
             <div class="important-notes">
                 <h3><i class="fas fa-exclamation-circle"></i> Importante</h3>
                 <ul>
@@ -980,61 +943,6 @@
                         <option value="">Selecciona tu equipo</option>
                         <!-- Equipos se cargarán con JavaScript -->
                     </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="metodo-pago"><i class="fas fa-credit-card"></i> Método de pago*</label>
-<<<<<<< HEAD
-                    <select id="metodo-pago" name="metodo-pago" required>
-=======
-                    <select id="metodo-pago" name="metodo-pago" required disabled>
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
-                        <option value="">Selecciona método de pago</option>
-                        <option value="Bancolombia">Bancolombia</option>
-                        <option value="BBVA">Banco BBVA</option>
-                        <option value="Nequi">Nequi</option>
-                        <option value="Daviplata">Daviplata</option>
-                        <option value="PSE">Pago en línea (PSE/Tarjeta)</option>
-                    </select>
-                </div>
-                
-                <div id="pago-info" class="payment-info">
-                    <h3><i class="fas fa-info-circle"></i> Información de pago</h3>
-                    <div class="payment-method" data-method="Bancolombia">
-                        <p><strong>🏦BANCOLOMBIA</strong></p>
-                        <p>Ahorro a la Mano</p>
-                        <p>🔢19700032186</p>
-                        <p>👤ken**oso**per</p>
-                    </div>
-                    <div class="payment-method" data-method="BBVA">
-                        <p><strong>🏦💙 BANCO BBVA</strong></p>
-                        <p>🔢940424419</p>
-                        <p>👤jos**Mau**Chi**</p>
-                    </div>
-                    <div class="payment-method" data-method="Nequi">
-                        <p><strong>📲NEQUI</strong></p>
-                        <p>👤jos**Mau**Chi**</p>
-                        <p>📞3045528042</p>
-                    </div>
-                    <div class="payment-method" data-method="Daviplata">
-                        <p><strong>📲DAVIPLATA</strong></p>
-                        <p>👤jos**Mau**Chi**</p>
-                        <p>📞3045528042</p>
-                    </div>
-                    <div class="payment-method" data-method="PSE">
-                        <p><strong>💻💳 PAGO EN LÍNEA (PSE / TARJETA DE CRÉDITO)</strong></p>
-                        <p>🌐 👉 <a href="https://checkout.wompi.co/l/90TJmP" target="_blank" style="color: var(--primary);">https://checkout.wompi.co/l/90TJmP</a></p>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="referencia"><i class="fas fa-receipt"></i> Referencia de pago*</label>
-<<<<<<< HEAD
-                    <input type="text" id="referencia" name="referencia" required>
-=======
-                    <input type="text" id="referencia" name="referencia" required disabled>
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
-                    <p class="note" style="color: var(--accent); font-size: 0.8rem;">Nota: Incluye el número de referencia que obtuviste al realizar el pago</p>
                 </div>
                 
                 <div class="form-group terms">
@@ -1126,87 +1034,10 @@
             { nombre: "Copenhague", logo: "https://i.ibb.co/5WBwS3RD/29.png" }
         ];
 
-<<<<<<< HEAD
         // Initialize team counts from Supabase
         let conteoEquipos = {};
         
         document.addEventListener('DOMContentLoaded', async function() {
-=======
-        // Estado de logos
-        const estadoLogos = {}; // { equipo: { ok:boolean, url:string } }
-
-        async function precargarLogos() {
-            const timeout = ms => new Promise(r => setTimeout(r, ms));
-            await Promise.race([
-                Promise.all(
-                    equiposChampions.map(eq => new Promise(res => {
-                        const img = new Image();
-                        img.onload = () => { estadoLogos[eq.nombre] = { ok: true, url: eq.logo }; res(); };
-                        img.onerror = () => { estadoLogos[eq.nombre] = { ok: false, url: eq.logo }; res(); };
-                        // cache bust por si hay CDN lento
-                        img.src = eq.logo + (eq.logo.includes('?') ? '&' : '?') + 'v=' + Date.now();
-                    }))
-                ),
-                timeout(5000)
-            ]);
-        }
-
-        // --- Custom Select con imágenes ---
-        // Creamos un select visual con imágenes debajo del select real
-    function crearCustomSelectEquipos() {
-            const select = document.getElementById('equipo');
-            let custom = document.getElementById('custom-select-equipos');
-            if (custom) custom.remove();
-
-            // Crear contenedor
-            custom = document.createElement('div');
-            custom.id = 'custom-select-equipos';
-            custom.style.display = 'grid';
-            custom.style.gridTemplateColumns = 'repeat(auto-fit, minmax(120px, 1fr))';
-            custom.style.gap = '10px';
-            custom.style.margin = '15px 0 0 0';
-
-            // Solo mostrar equipos disponibles
-            Array.from(select.options).forEach(option => {
-                if (!option.value) return;
-                const equipo = equiposChampions.find(e => e.nombre === option.value);
-                if (!equipo) return;
-                const div = document.createElement('div');
-                div.style.cursor = 'pointer';
-                div.style.background = 'rgba(10,15,40,0.7)';
-                div.style.border = '1px solid #00fffc44';
-                div.style.borderRadius = '8px';
-                div.style.padding = '10px 5px';
-                div.style.textAlign = 'center';
-                div.style.transition = 'all 0.2s';
-                div.onmouseover = () => div.style.boxShadow = '0 0 10px #00fffc88';
-                div.onmouseout = () => div.style.boxShadow = '';
-                div.onclick = () => {
-                    select.value = equipo.nombre;
-                    select.dispatchEvent(new Event('change'));
-                    // Marcar visualmente
-                    Array.from(custom.children).forEach(c => c.style.outline = '');
-                    div.style.outline = '2px solid var(--accent)';
-                };
-                // Imagen y nombre
-                const estado = estadoLogos[equipo.nombre];
-                const logoUrl = estado && estado.ok ? estado.url : 'https://via.placeholder.com/50x50?text=NO';
-                div.innerHTML = `<img src="${logoUrl}" alt="${equipo.nombre}" style="width:50px;height:50px;object-fit:contain;display:block;margin:0 auto 5px;background:#111;border-radius:4px;filter:drop-shadow(0 0 5px #00fffc88);"><span style="font-size:0.95em;">${equipo.nombre}</span>`;
-                custom.appendChild(div);
-            });
-
-            // Insertar después del select
-            const parent = select.parentElement;
-            if (parent) parent.appendChild(custom);
-        }
-
-        // Initialize team counts from Supabase
-    let conteoEquipos = {};
-    let modoOffline = false; // fallback si Supabase falla
-        
-        document.addEventListener('DOMContentLoaded', async function() {
-            await precargarLogos();
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
             // Verify and ensure all teams are loaded
             await verificarEquiposEnTeamCounts();
             
@@ -1247,49 +1078,8 @@
                 actualizarEquiposDisponibles();
             } catch (error) {
                 console.error('Error loading team counts:', error);
-<<<<<<< HEAD
                 alert('Error al cargar los datos. Por favor recarga la página.');
             }
-            
-            // Configurar el método de pago
-            const metodoPagoSelect = document.getElementById('metodo-pago');
-            const pagoInfo = document.getElementById('pago-info');
-            const paymentMethods = document.querySelectorAll('.payment-method');
-
-            metodoPagoSelect.addEventListener('change', function() {
-                const metodoSeleccionado = this.value;
-                
-                if (metodoSeleccionado) {
-                    pagoInfo.style.display = 'block';
-                    
-                    // Ocultar todos los métodos primero
-                    paymentMethods.forEach(method => {
-                        method.style.display = 'none';
-                    });
-                    
-                    // Mostrar solo el método seleccionado
-                    document.querySelector(`.payment-method[data-method="${metodoSeleccionado}"]`).style.display = 'block';
-                } else {
-                    pagoInfo.style.display = 'none';
-                }
-            });
-=======
-                // Fallback: poblar con todos los equipos como disponibles
-                modoOffline = true;
-                equiposChampions.forEach(equipo => {
-                    conteoEquipos[equipo.nombre] = 0;
-                });
-                poblarEquiposLocal();
-            }
-            
-            // Configurar el método de pago (omitido porque está deshabilitado)
-            const metodoPagoSelect = document.getElementById('metodo-pago');
-            const pagoInfo = document.getElementById('pago-info');
-            if (metodoPagoSelect) {
-                // asegurar que esté oculto
-                pagoInfo.style.display = 'none';
-            }
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
 
             // Validación de teléfono (10 dígitos numéricos)
             const telefonoInput = document.getElementById('telefono');
@@ -1332,13 +1122,6 @@
             const closeModal = document.getElementById('closeModal');
             
             registrationForm.addEventListener('submit', async function(e) {
-<<<<<<< HEAD
-=======
-                // Si estamos offline, dejamos que el form se envíe a Formspree normal
-                if (modoOffline) {
-                    return; // no preventDefault
-                }
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
                 e.preventDefault();
                 
                 // Verify total slots
@@ -1372,9 +1155,7 @@
                         .insert([{
                             nombre: formData.get('nombre'),
                             telefono: formData.get('telefono'),
-                            equipo: equipoSeleccionado,
-                            metodo_pago: formData.get('metodo-pago'),
-                            referencia_pago: formData.get('referencia')
+                            equipo: equipoSeleccionado
                         }]);
 
                     if (registrationError) throw registrationError;
@@ -1395,20 +1176,12 @@
                     
                     // Reset form
                     this.reset();
-                    document.getElementById('pago-info').style.display = 'none';
                     
                     // Update interface
                     actualizarEquiposDisponibles();
                 } catch (error) {
                     console.error('Error:', error);
-<<<<<<< HEAD
                     alert('Hubo un problema al enviar tu inscripción. Por favor inténtalo de nuevo o contáctanos por WhatsApp.');
-=======
-                    alert('Hubo un problema al enviar tu inscripción. Se enviará tu registro por correo.');
-                    // Permitir fallback a Formspree en caso de error puntual
-                    modoOffline = true;
-                    registrationForm.submit();
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
                 }
             });
 
@@ -1418,11 +1191,7 @@
             });
         });
 
-<<<<<<< HEAD
-        async function actualizarEquiposDisponibles() {
-=======
     async function actualizarEquiposDisponibles() {
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
             try {
                 // Fetch latest counts from Supabase
                 const { data: teamCounts, error } = await supabase
@@ -1442,13 +1211,6 @@
                 // Clear previous listings
                 teamsGrid.innerHTML = '';
                 selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
-<<<<<<< HEAD
-=======
-                // Forzar grid y estilos para asegurar visibilidad
-                teamsGrid.style.display = 'grid';
-                teamsGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(150px, 1fr))';
-                teamsGrid.style.gap = '15px';
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
 
                 // Calculate totals
                 let totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
@@ -1459,23 +1221,14 @@
                 equiposChampions.forEach(equipo => {
                     const inscritos = conteoEquipos[equipo.nombre] || 0;
                     const disponible = (cuposDisponibles > 0) && (inscritos < 5);
-<<<<<<< HEAD
-                    
                     // Create team card
                     const teamCard = document.createElement('div');
                     teamCard.className = 'team-card';
-                    
-=======
-                    // Create team card
-                    const teamCard = document.createElement('div');
-                    teamCard.className = 'team-card';
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
                     if (!disponible) {
                         teamCard.style.opacity = '0.6';
                         teamCard.style.filter = 'grayscale(50%)';
                         teamCard.style.pointerEvents = 'none';
                     }
-<<<<<<< HEAD
                     
                     teamCard.innerHTML = `
                         <img src="${equipo.logo}" alt="${equipo.nombre}" class="team-logo">
@@ -1485,24 +1238,6 @@
                             '(COMPLETO)'}
                         </div>
                     `;
-=======
-                    // Imagen con loading lazy y fallback
-                    const img = document.createElement('img');
-                    const est = estadoLogos[equipo.nombre];
-                    img.src = (est && est.ok) ? est.url : 'https://via.placeholder.com/90x90?text=NO';
-                    img.alt = equipo.nombre;
-                    img.className = 'team-logo';
-                    img.loading = 'lazy';
-                    teamCard.appendChild(img);
-                    const nameDiv = document.createElement('div');
-                    nameDiv.className = 'team-name';
-                    nameDiv.textContent = equipo.nombre;
-                    teamCard.appendChild(nameDiv);
-                    const counterDiv = document.createElement('div');
-                    counterDiv.className = 'team-counter';
-                    counterDiv.textContent = disponible ? `(${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})` : '(COMPLETO)';
-                    teamCard.appendChild(counterDiv);
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
                     teamsGrid.appendChild(teamCard);
 
                     // Add to select if available
@@ -1515,71 +1250,13 @@
                     }
                 });
 
-<<<<<<< HEAD
                 return cuposDisponibles;
             } catch (error) {
                 console.error('Error updating available teams:', error);
                 alert('Error al actualizar los equipos disponibles. Por favor recarga la página.');
-=======
-                // No crear el custom select con imágenes debajo del selector
-                const existingCustom = document.getElementById('custom-select-equipos');
-                if (existingCustom) existingCustom.remove();
-
-                return cuposDisponibles;
-            } catch (error) {
-                console.error('Error updating available teams:', error);
-                // Fallback a local
-                modoOffline = true;
-                poblarEquiposLocal();
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
                 return 0;
             }
         }
-
-<<<<<<< HEAD
-=======
-        // Poblar equipos con datos locales (sin Supabase)
-        function poblarEquiposLocal() {
-            const teamsGrid = document.getElementById('teams-grid');
-            const selectEquipo = document.getElementById('equipo');
-            teamsGrid.innerHTML = '';
-            selectEquipo.innerHTML = '<option value="">Selecciona tu equipo</option>';
-            teamsGrid.style.display = 'grid';
-            teamsGrid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(150px, 1fr))';
-            teamsGrid.style.gap = '15px';
-
-            equiposChampions.forEach(equipo => {
-                const teamCard = document.createElement('div');
-                teamCard.className = 'team-card';
-                const img = document.createElement('img');
-                const est = estadoLogos[equipo.nombre];
-                img.src = (est && est.ok) ? est.url : 'https://via.placeholder.com/90x90?text=NO';
-                img.alt = equipo.nombre;
-                img.className = 'team-logo';
-                img.loading = 'lazy';
-                teamCard.appendChild(img);
-                const nameDiv = document.createElement('div');
-                nameDiv.className = 'team-name';
-                nameDiv.textContent = equipo.nombre;
-                teamCard.appendChild(nameDiv);
-                const counterDiv = document.createElement('div');
-                counterDiv.className = 'team-counter';
-                counterDiv.textContent = '(disponible)';
-                teamCard.appendChild(counterDiv);
-                teamsGrid.appendChild(teamCard);
-
-                const option = document.createElement('option');
-                option.value = equipo.nombre;
-                option.textContent = equipo.nombre;
-                selectEquipo.appendChild(option);
-            });
-
-            // No crear el custom select con imágenes debajo del selector
-            const existingCustom = document.getElementById('custom-select-equipos');
-            if (existingCustom) existingCustom.remove();
-        }
-
->>>>>>> 066afb8 (feat: integrar nuevo Supabase, fallback offline para equipos, deshabilitar pagos y usar selector nativo de equipos)
         // Función para verificar y asegurar que todos los equipos estén en team_counts
         async function verificarEquiposEnTeamCounts() {
             try {
