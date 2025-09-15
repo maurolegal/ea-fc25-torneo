@@ -263,26 +263,7 @@
             margin-top: 40px;
         }
 
-        /* Registro rápido en esta página */
-        .registration-card {
-            background: rgba(10, 15, 40, 0.8);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(0,255,252,0.25);
-            box-shadow: 0 0 20px rgba(0,255,252,0.12);
-            margin-bottom: 25px;
-        }
-        .form-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
-        .form-group label { display:block; margin-bottom:6px; color: var(--primary); font-size: .95rem; }
-        .form-group input, .form-group select {
-            width: 100%; padding: 10px 12px; border-radius: 8px; background: rgba(0,0,0,0.45);
-            color: var(--light); border: 1px solid rgba(0,255,252,0.28); outline: none;
-        }
-        .form-actions { display:flex; gap:10px; }
-        .btn {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: var(--dark); border: none; padding: 10px 16px; border-radius: 8px; font-weight: 800; cursor: pointer;
-        }
+    /* (Registro rápido eliminado) */
         .participants-card {
             background: rgba(10, 15, 40, 0.8);
             border-radius: 15px;
@@ -387,33 +368,7 @@
     </header>
 
     <div class="container">
-        <section class="registration-section">
-            <h2 class="section-title">Registro rápido</h2>
-            <div class="registration-card">
-                <form id="quick-register-form">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="qr-nombre">Nombre y Apellido*</label>
-                            <input id="qr-nombre" name="nombre" type="text" placeholder="Ej: Juan Pérez" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="qr-telefono">Teléfono / WhatsApp*</label>
-                            <input id="qr-telefono" name="telefono" type="tel" inputmode="numeric" placeholder="Ej: 3001234567" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="qr-equipo">Equipo*</label>
-                            <select id="qr-equipo" name="equipo" required>
-                                <option value="">Selecciona tu equipo</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-actions" style="margin-top:10px;">
-                        <button type="submit" class="btn">Inscribirme</button>
-                    </div>
-                    <p id="qr-msg" style="margin-top:8px;color:var(--accent);"></p>
-                </form>
-            </div>
-        </section>
+    <!-- Sección de registro rápido eliminada -->
         <section class="bracket-section">
             <h2 class="section-title">Bracket del Torneo</h2>
             <div class="bracket-container">
@@ -507,56 +462,7 @@
             return e ? e.logo : 'https://i.ibb.co/xtkw0mB7/background-de-fc-25.jpg';
         }
 
-        // --- Conteo de equipos desde Supabase ---
-        let conteoEquipos = {}; // { team_name: count }
-
-        async function verificarEquiposEnTeamCounts() {
-            try {
-                const { data: teamCounts, error } = await supabase.from('team_counts').select('*');
-                if (error) throw error;
-                const existentes = new Set(teamCounts?.map(t => t.team_name) || []);
-                const faltantes = equiposChampions.filter(e => !existentes.has(e.nombre));
-                if (faltantes.length) {
-                    const payload = faltantes.map(e => ({ team_name: e.nombre, count: 0 }));
-                    const { error: insErr } = await supabase.from('team_counts').insert(payload);
-                    if (insErr) throw insErr;
-                }
-            } catch (e) {
-                console.error('verificarEquiposEnTeamCounts:', e);
-            }
-        }
-
-        async function cargarConteosEquipos() {
-            try {
-                const { data: teamCounts, error } = await supabase.from('team_counts').select('*');
-                if (error) throw error;
-                conteoEquipos = {};
-                (teamCounts || []).forEach(t => conteoEquipos[t.team_name] = t.count);
-                // Asegurar todos con 0
-                equiposChampions.forEach(e => { if (conteoEquipos[e.nombre] == null) conteoEquipos[e.nombre] = 0; });
-            } catch (e) {
-                console.error('cargarConteosEquipos:', e);
-            }
-        }
-
-        function totalInscritos() { return Object.values(conteoEquipos).reduce((a,b)=>a+(b||0),0); }
-
-        function poblarSelectEquiposDisponibles() {
-            const sel = document.getElementById('qr-equipo');
-            if (!sel) return;
-            sel.innerHTML = '<option value="">Selecciona tu equipo</option>';
-            const total = totalInscritos();
-            equiposChampions.forEach(e => {
-                const count = conteoEquipos[e.nombre] || 0;
-                const disponible = total < 32 && count < 5;
-                if (disponible) {
-                    const opt = document.createElement('option');
-                    opt.value = e.nombre;
-                    opt.textContent = `${e.nombre} (${5 - count} cupos)`;
-                    sel.appendChild(opt);
-                }
-            });
-        }
+    // (Lógica de conteos y formulario rápido eliminada; mantenemos solo lectura de participantes)
 
         // Cargar participantes
         async function cargarParticipantes() {
@@ -764,13 +670,6 @@
         document.addEventListener('DOMContentLoaded', async function() {
             await actualizarEstadoSupabase('pending');
             await probarConexionSupabase();
-            await verificarEquiposEnTeamCounts();
-            await cargarConteosEquipos();
-            poblarSelectEquiposDisponibles();
-
-            // Validación simple de teléfono
-            const tel = document.getElementById('qr-telefono');
-            if (tel) tel.addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,10); });
 
             participantesGlobal = await cargarParticipantes();
             renderParticipantsList(participantesGlobal);
@@ -785,48 +684,7 @@
                 document.getElementById('fixture-list').innerHTML = '';
             });
 
-            // Registro desde el formulario rápido
-            const form = document.getElementById('quick-register-form');
-            const msg = document.getElementById('qr-msg');
-            if (form) {
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    if (msg) msg.textContent = '';
-                    const nombre = document.getElementById('qr-nombre').value.trim();
-                    const telefono = document.getElementById('qr-telefono').value.trim();
-                    const equipo = document.getElementById('qr-equipo').value;
-                    if (!nombre || !telefono || !equipo) { if (msg) msg.textContent = 'Completa todos los campos.'; return; }
-                    // Validar cupos (32 total y 5 por equipo)
-                    const total = totalInscritos();
-                    const countEquipo = conteoEquipos[equipo] || 0;
-                    if (total >= 32) { if (msg) msg.textContent = 'El torneo ya alcanzó 32 participantes.'; return; }
-                    if (countEquipo >= 5) { if (msg) msg.textContent = 'Este equipo ya tiene 5 jugadores. Elige otro.'; poblarSelectEquiposDisponibles(); return; }
-                    const btn = form.querySelector('button[type="submit"]');
-                    if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
-                    try {
-                        const { error } = await supabase
-                            .from('registrations')
-                            .insert([{ nombre, telefono, equipo }]);
-                        if (error) throw error;
-                        // Actualizar conteo del equipo
-                        const nuevo = (conteoEquipos[equipo] || 0) + 1;
-                        const { error: upErr } = await supabase
-                            .from('team_counts')
-                            .update({ count: nuevo })
-                            .eq('team_name', equipo);
-                        if (upErr) throw upErr;
-                        conteoEquipos[equipo] = nuevo;
-                        if (msg) msg.textContent = 'Registro exitoso. ¡Te agregamos al bracket!';
-                        form.reset();
-                        poblarSelectEquiposDisponibles();
-                    } catch (err) {
-                        console.error(err);
-                        if (msg) msg.textContent = err.message || 'Error al registrar. Intenta nuevamente.';
-                    } finally {
-                        if (btn) { btn.disabled = false; btn.textContent = 'Inscribirme'; }
-                    }
-                });
-            }
+            // (Registro eliminado: solo lectura de participantes desde Supabase)
 
             // Suscripción en tiempo real
         supabase.channel('registrations-changes')
@@ -834,8 +692,5 @@
                     participantesGlobal = await cargarParticipantes();
                     renderParticipantsList(participantesGlobal);
                     generarBracket(participantesGlobal);
-            // Refrescar conteos y selector
-            await cargarConteosEquipos();
-            poblarSelectEquiposDisponibles();
                 })
                 .subscribe();
