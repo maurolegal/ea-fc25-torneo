@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Inscripción — Copa XPERT 4.0</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;700&family=Russo+One&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00fffc;
+      --secondary: #ff00f7;
+      --dark: #0c1020;
+      --light: #f0f8ff;
+      --accent: #ffcc00;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Oxanium', sans-serif;
+      background: url('img/background.jpg.png') center/cover fixed no-repeat var(--dark);
+      color: var(--light);
+      min-height: 100vh;
+    }
+    .overlay { position: fixed; inset: 0; background: rgba(12,16,32,0.85); z-index: -1; }
+    .container { width: 95%; max-width: 720px; margin: 40px auto; }
+    .card {
+      background: rgba(10,15,40,0.85);
+      border: 1px solid rgba(0,255,252,0.25);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 0 30px rgba(0,255,252,0.12);
+      backdrop-filter: blur(6px);
+    }
+    h1 {
+      font-family: 'Russo One', sans-serif;
+      text-align: center;
+      margin-bottom: 6px;
+      font-size: clamp(1.6rem, 4vw, 2.1rem);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .subtitle { text-align: center; color: #bcd; margin-bottom: 18px; font-size: .95rem; }
+    .form { display: grid; gap: 16px; }
+    .group label { display:block; margin-bottom: 6px; color: var(--primary); font-size: .95rem; }
+    .group input, .group select {
+      width: 100%; padding: 12px 14px; border-radius: 8px;
+      background: rgba(0,0,0,0.45);
+      color: var(--light);
+      border: 1px solid rgba(0,255,252,0.28);
+      outline: none; transition: border .2s, box-shadow .2s;
+      font-family: 'Oxanium', sans-serif; font-size: 1rem;
+    }
+    .group input:focus, .group select:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0,255,252,.25); }
+    .help { font-size: .8rem; color: var(--accent); margin-top: 6px; }
+    .btn {
+      width: 100%; padding: 14px; border: 0; border-radius: 8px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: var(--dark); font-weight: 800; letter-spacing: .4px;
+      cursor: pointer; transition: transform .15s ease, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,255,252,.35); }
+    .brand { display:flex; justify-content:center; margin: 10px 0 22px; }
+    .brand img { height: 56px; filter: drop-shadow(0 0 10px rgba(0,255,252,.35)); }
+    .note { text-align:center; font-size:.85rem; color:#cde; margin-top: 10px; }
+    .back { text-align:center; margin-top: 18px; }
+    .back a { color: var(--primary); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="brand">
+      <a href="index.html"><img src="logo.png" alt="Copa XPERT 4.0" /></a>
+    </div>
+    <div class="card">
+      <h1>Formulario de Inscripción</h1>
+      <p class="subtitle">Completa tus datos para registrarte. Campos marcados con * son obligatorios.</p>
+      <form id="form-inscripcion" class="form" action="https://formspree.io/f/xwpobdyg" method="POST">
+        <div class="group">
+          <label for="nombre">Nombre y Apellido*</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required />
+        </div>
+        <div class="group">
+          <label for="telefono">Teléfono / WhatsApp*</label>
+          <input type="tel" id="telefono" name="telefono" inputmode="numeric" autocomplete="tel" placeholder="Ej: 3001234567" required />
+          <div class="help">Solo números, 10 dígitos.</div>
+        </div>
+        <div class="group">
+          <label for="equipo">Selecciona tu equipo*</label>
+          <select id="equipo" name="equipo" required>
+            <option value="">Selecciona tu equipo</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Enviar inscripción</button>
+        <p class="note">Tras enviar, puedes escribirnos por WhatsApp si necesitas confirmar tu registro.</p>
+      </form>
+      <div class="back"><a href="index.html">← Volver al inicio</a></div>
+    </div>
+  </div>
+
+  <script>
+    // Lista tomada de index.html (coherencia en los nombres)
+    const equiposChampions = [
+      "Real Madrid","Barcelona","Bayern Múnich","Manchester City","Liverpool","PSG","Chelsea","Inter de Milán","AC Milan","Juventus","Arsenal","Borussia Dortmund","Atlético de Madrid","Sevilla","RB Leipzig","Benfica","Porto","Ajax","Shakhtar Donetsk","Celtic","Rangers","Galatasaray","Fenerbahçe","Olympiakos","Dinamo Kiev","Red Bull Salzburg","Sporting de Lisboa","PSV Eindhoven","Napoli","Roma","Lazio","Copenhague"
+    ];
+
+    // Poblar el select de equipos
+    const selectEquipo = document.getElementById('equipo');
+    equiposChampions.forEach(eq => {
+      const opt = document.createElement('option');
+      opt.value = eq; opt.textContent = eq; selectEquipo.appendChild(opt);
+    });
+
+    // Validación básica de teléfono (solo dígitos, 10)
+    const tel = document.getElementById('telefono');
+    tel.addEventListener('input', function(){
+      this.value = this.value.replace(/\D/g,'').slice(0,10);
+    });
+
+    // Optional: prevenir doble envío
+    const form = document.getElementById('form-inscripcion');
+    form.addEventListener('submit', function(){
+      const btn = this.querySelector('button[type="submit"]');
+      btn.disabled = true; btn.textContent = 'Enviando...';
+      setTimeout(() => { btn.disabled = false; btn.textContent = 'Enviar inscripción'; }, 6000);
+    });
+  </script>
+</body>
+</html>
