@@ -294,6 +294,12 @@
         .participants-list { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
         .participant-item { background: rgba(0,0,0,0.45); border: 1px solid rgba(0,255,252,0.2); border-radius:8px; padding:10px; display:flex; align-items:center; gap:10px; }
         .participant-item img { width:28px; height:28px; object-fit:contain; }
+    /* Estado de conexión Supabase */
+    .sb-status { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:.85rem; border:1px solid rgba(0,255,252,0.3); background: rgba(0,0,0,0.35); }
+    .sb-dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+    .sb-dot.pending { background:#ffcc00; box-shadow:0 0 8px #ffcc0077; }
+    .sb-dot.ok { background:#00e676; box-shadow:0 0 8px #00e67688; }
+    .sb-dot.err { background:#ff5252; box-shadow:0 0 8px #ff525288; }
 
         .fixture-controls {
             display: flex;
@@ -375,6 +381,7 @@
                     <img src="https://i.ibb.co/zVWk7dMy/LOGO-PUNTOS-NEMESIS.png" alt="EA FC 25" class="logo">
                 </a>
                 <h1 style="color: var(--primary); font-size: 1.5rem;">Bracket del Torneo</h1>
+                <div class="sb-status" id="sb-status"><span class="sb-dot pending" id="sb-dot"></span><span id="sb-text">Conectando a Supabase…</span></div>
             </div>
         </div>
     </header>
@@ -731,9 +738,32 @@
         }
 
         let participantesGlobal = [];
+        async function actualizarEstadoSupabase(estado, detalle) {
+            const dot = document.getElementById('sb-dot');
+            const text = document.getElementById('sb-text');
+            if (!dot || !text) return;
+            if (estado === 'ok') { dot.className = 'sb-dot ok'; text.textContent = 'Conectado a Supabase'; }
+            else if (estado === 'err') { dot.className = 'sb-dot err'; text.textContent = detalle || 'Error de conexión a Supabase'; }
+            else { dot.className = 'sb-dot pending'; text.textContent = 'Conectando a Supabase…'; }
+        }
+
+        async function probarConexionSupabase() {
+            try {
+                const { error } = await supabase.from('team_counts').select('team_name').limit(1);
+                if (error) throw error;
+                await actualizarEstadoSupabase('ok');
+                return true;
+            } catch (e) {
+                console.error('Supabase ping error:', e);
+                await actualizarEstadoSupabase('err', e.message);
+                return false;
+            }
+        }
 
         // Inicializar la página
         document.addEventListener('DOMContentLoaded', async function() {
+            await actualizarEstadoSupabase('pending');
+            await probarConexionSupabase();
             await verificarEquiposEnTeamCounts();
             await cargarConteosEquipos();
             poblarSelectEquiposDisponibles();
