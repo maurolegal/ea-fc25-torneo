@@ -415,6 +415,12 @@
         <section class="participants-section">
             <h2 class="section-title">Participantes</h2>
             <div class="participants-card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap;">
+                    <div id="participants-meta" style="font-size:.95rem;color:#cde;">Cargando inscritos…</div>
+                    <button id="participants-refresh" class="fixture-button" type="button" style="padding:6px 12px;">Refrescar</button>
+                </div>
+                <div id="participants-empty" style="display:none;color:#ffcc00;margin:8px 0;">No hay inscritos aún.</div>
+                <div id="participants-error" style="display:none;color:#ff5555;margin:8px 0;"></div>
                 <div id="participants-list" class="participants-list"></div>
             </div>
         </section>
@@ -466,15 +472,28 @@
 
         // Cargar participantes
         async function cargarParticipantes() {
+            // Intenta ordenar por created_at; si falla, intenta por id; si falla, sin orden
             try {
-                const { data, error } = await supabase
-                    .from('registrations')
-                    .select('*')
-                    .order('created_at', { ascending: true });
-                if (error) throw error;
+                let q = supabase.from('registrations').select('id,nombre,telefono,equipo,created_at');
+                let { data, error } = await q.order('created_at', { ascending: true });
+                if (error) {
+                    // Reintentar por id
+                    q = supabase.from('registrations').select('id,nombre,telefono,equipo');
+                    const r2 = await q.order('id', { ascending: true });
+                    if (r2.error) {
+                        // Último intento sin orden
+                        const r3 = await supabase.from('registrations').select('id,nombre,telefono,equipo');
+                        if (r3.error) throw r3.error;
+                        return r3.data || [];
+                    }
+                    return r2.data || [];
+                }
                 return data || [];
             } catch (e) {
                 console.error('Error al cargar participantes:', e);
+                // Exponer error en UI
+                const errBox = document.getElementById('participants-error');
+                if (errBox) { errBox.style.display = 'block'; errBox.textContent = `Error: ${e.message || e}`; }
                 return [];
             }
         }
@@ -488,10 +507,16 @@
                 item.className = 'participant-item';
                 item.innerHTML = `
                     <img src="${logoEquipo(p.equipo)}" alt="${p.equipo}">
-            <div style="font-weight:700;">${p.nombre} — <span style="font-weight:600;color:#cde;">${p.equipo}</span></div>
+            <div style="font-weight:700;">${p?.nombre || 'Sin nombre'} — <span style=\"font-weight:600;color:#cde;\">${p?.equipo || '—'}</span></div>
                 `;
                 container.appendChild(item);
             });
+        const empty = document.getElementById('participants-empty');
+        const err = document.getElementById('participants-error');
+        if (err) err.style.display = 'none';
+        if (empty) empty.style.display = participantes.length ? 'none' : 'block';
+        const meta = document.getElementById('participants-meta');
+        if (meta) meta.textContent = `Inscritos: ${participantes.length}`;
         }
 
         // Función para generar el bracket
@@ -672,7 +697,7 @@
         }
 
         // Inicializar la página
-        document.addEventListener('DOMContentLoaded', async function() {
+    document.addEventListener('DOMContentLoaded', async function() {
             await actualizarEstadoSupabase('pending');
             await probarConexionSupabase();
 
@@ -688,6 +713,21 @@
             document.getElementById('clear-fixtures').addEventListener('click', () => {
                 document.getElementById('fixture-list').innerHTML = '';
             });
+
+            const refreshBtn = document.getElementById('participants-refresh');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', async () => {
+                    const meta = document.getElementById('participants-meta');
+                    const empty = document.getElementById('participants-empty');
+                    const err = document.getElementById('participants-error');
+                    if (meta) meta.textContent = 'Actualizando…';
+                    if (err) err.style.display = 'none';
+                    if (empty) empty.style.display = 'none';
+                    participantesGlobal = await cargarParticipantes();
+                    renderParticipantsList(participantesGlobal);
+                    generarBracket(participantesGlobal);
+                });
+            }
 
             // (Registro eliminado: solo lectura de participantes desde Supabase)
 
