@@ -479,7 +479,7 @@
             }
         }
 
-        function renderParticipantsList(participantes) {
+    function renderParticipantsList(participantes) {
             const container = document.getElementById('participants-list');
             if (!container) return;
             container.innerHTML = '';
@@ -488,10 +488,7 @@
                 item.className = 'participant-item';
                 item.innerHTML = `
                     <img src="${logoEquipo(p.equipo)}" alt="${p.equipo}">
-                    <div>
-                        <div style="font-weight:700;">${p.nombre}</div>
-                        <div style="font-size:.85rem;color:#cde;">${p.equipo}</div>
-                    </div>
+            <div style="font-weight:700;">${p.nombre} — <span style="font-weight:600;color:#cde;">${p.equipo}</span></div>
                 `;
                 container.appendChild(item);
             });
@@ -549,19 +546,27 @@
                 for (let i = 0; i < numPartidos; i++) {
                     const match = document.createElement('div');
                     match.className = 'match';
-                    // Primera ronda con participantes reales
-                    if ((!invertido && index === 0 && i < participantes.length) || (invertido && index === rondas.length - 1 && i < participantes.length)) {
-                        const participante = participantes[i];
-                        match.innerHTML = `
-                            <div class=\"team\">
-                                <img src=\"${obtenerLogoEquipo(participante.equipo)}\" alt=\"${participante.equipo}\">
-                                <span class=\"team-name\">${participante.nombre}</span>
-                            </div>
-                            <div class=\"team\">
-                                <img src=\"${obtenerLogoEquipo(participante.equipo)}\" alt=\"${participante.equipo}\">
-                                <span class=\"team-name\">vs</span>
-                            </div>
-                        `;
+                    // Primera ronda con participantes reales (emparejamiento p1 vs p2)
+                    if ((!invertido && index === 0) || (invertido && index === rondas.length - 1)) {
+                        const p1 = participantes[2 * i];
+                        const p2 = participantes[2 * i + 1];
+                        if (p1 || p2) {
+                            match.innerHTML = `
+                                <div class=\"team\">
+                                    <img src=\"${obtenerLogoEquipo(p1?.equipo || '')}\" alt=\"${p1?.equipo || 'Libre'}\">
+                                    <span class=\"team-name\">${p1 ? `${p1.nombre} — ${p1.equipo}` : 'Libre'}</span>
+                                </div>
+                                <div class=\"team\">
+                                    <img src=\"${obtenerLogoEquipo(p2?.equipo || '')}\" alt=\"${p2?.equipo || 'Libre'}\">
+                                    <span class=\"team-name\">${p2 ? `${p2.nombre} — ${p2.equipo}` : 'BYE'}</span>
+                                </div>
+                            `;
+                        } else {
+                            match.innerHTML = `
+                                <div class=\"team\"><span class=\"team-name\">Pendiente</span></div>
+                                <div class=\"team\"><span class=\"team-name\">vs</span></div>
+                            `;
+                        }
                     } else {
                         // Partidos vacíos para las siguientes rondas
                         match.innerHTML = `
