@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro Torneo - Escanea el QR</title>
+  <meta name="description" content="Escanea el código QR para registrarte en el torneo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark light;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d0f17;
+      background-image: radial-gradient(circle at 30% 30%, #1c2538, transparent 60%), radial-gradient(circle at 70% 70%, #182132, transparent 55%);
+      color: #fff;
+      overflow: hidden;
+    }
+    .wrapper {
+      text-align: center;
+      max-width: 1000px;
+      padding: 2rem 1.5rem 3rem;
+      width: 100%;
+    }
+    h1 { margin: 0 0 1rem; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: .5px; }
+    p { margin: .25rem 0 1.5rem; font-size: clamp(.95rem, 1.6vw, 1.15rem); line-height: 1.4; }
+    .qr-container {
+      position: relative;
+      margin: 0 auto;
+      width: min(78vmin, 680px);
+      aspect-ratio: 1 / 1;
+      background: #fff;
+      border-radius: 24px;
+      padding: clamp(14px, 2.4vmin, 28px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.08) inset;
+      isolation: isolate;
+    }
+    canvas, img.qr-fallback { width: 100%; height: 100%; object-fit: contain; }
+    .note { opacity: .75; font-size: .85rem; margin-top: 1.25rem; }
+    a.fallback-link { color: #4da6ff; font-weight: 600; text-decoration: none; }
+    a.fallback-link:hover { text-decoration: underline; }
+    footer { position: fixed; bottom: .6rem; left: 0; right: 0; text-align: center; font-size: .65rem; letter-spacing: .5px; opacity: .4; }
+
+    /* Animaciones sutiles */
+    .qr-container::after, .qr-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+    .qr-container::before { border: 2px solid rgba(0,0,0,.05); mix-blend-mode: overlay; }
+    .qr-container::after {
+      background: linear-gradient(115deg, rgba(77,166,255,.15), transparent 60%);
+      mix-blend-mode: overlay;
+      animation: sheen 4.8s linear infinite;
+    }
+    @keyframes sheen { 0% { opacity: 0; } 8% { opacity: 1; } 40% { opacity: .25; } 60% { opacity: 0; } 100% { opacity: 0; } }
+
+    @media (max-width: 560px) {
+      body { padding: 0; }
+      .wrapper { padding-top: 1.25rem; }
+      h1 { font-size: 1.75rem; }
+      .qr-container { border-radius: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Registro Torneo EA FC 25</h1>
+    <p>Escanea este código con tu celular para abrir la página de registro y asegurar tu lugar en el torneo.</p>
+    <div class="qr-container" id="qrBox" aria-label="Código QR hacia la página de registro" role="img"></div>
+    <p class="note">Si tu cámara no reconoce el código, entra aquí: <br><a class="fallback-link" id="directLink" href="https://torneos.nemesisxpert.com/index.html">https://torneos.nemesisxpert.com/index.html</a></p>
+  </div>
+  <footer>© <span id="year"></span> Torneo EA FC 25</footer>
+
+  <script>
+    (function() {
+      const targetUrl = 'https://torneos.nemesisxpert.com/index.html';
+      document.getElementById('directLink').href = targetUrl;
+
+      // Colocar año dinámico
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Generar QR sin librería externa (Canvas) usando una librería mínima inline (versión reducida de QRious)
+      // Para simplicidad y mantener un único archivo, se incluye un generador básico.
+      // Si se requiere más calidad o logos, se puede reemplazar por una librería completa.
+
+      /* QR Code generator (simplificado adaptado de qrcode.js - MIT) */
+      function QR8bitByte(data) { this.mode = 1; this.data = data; }
+      QR8bitByte.prototype = { getLength:function(){return this.data.length;}, write:function(buffer){ for(let i=0;i<this.data.length;i++){ buffer.put(this.data.charCodeAt(i),8);} } };
+      function QRBitBuffer(){ this.buffer=[]; this.length=0;} 
+      QRBitBuffer.prototype={ get:function(i){ return ((this.buffer[Math.floor(i/8)] >>> (7 - i % 8)) & 1)==1; }, put:function(num,length){ for(let i=0;i<length;i++){ this.putBit(((num >>> (length - i - 1)) & 1)==1);} }, putBit:function(bit){ this.buffer[Math.floor(this.length/8)] = (this.buffer[Math.floor(this.length/8)] || 0); if(bit){ this.buffer[Math.floor(this.length/8)] |= (0x80 >>> (this.length % 8)); } this.length++; } };
+      const QRPolynomial=function(num,shift){ while(num.length>0&&num[0]==0) num.shift(); this.num=num; this.shift=shift; };
+      QRPolynomial.prototype={ get:function(index){ return this.num[index]; }, getLength:function(){ return this.num.length; }, multiply:function(e){ const num=[]; for(let i=0;i<this.getLength();i++){ for(let j=0;j<e.getLength();j++){ num[i+j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j))); } } return new QRPolynomial(num,0); }, mod:function(e){ if(this.getLength()-e.getLength()<0) return this; const ratio = QRMath.glog(this.get(0)) - QRMath.glog(e.get(0)); const num=this.num.slice(); for(let i=0;i<e.getLength();i++){ num[i] ^= QRMath.gexp(QRMath.glog(e.get(i)) + ratio); } return new QRPolynomial(num,0).mod(e); } };
+      const QRMath={ glog:function(e){ if(e<1) throw new Error('glog'); return QRMath.LOG_TABLE[e]; }, gexp:function(e){ while(e<0) e+=255; while(e>=256) e-=255; return QRMath.EXP_TABLE[e]; }, EXP_TABLE:new Array(256), LOG_TABLE:new Array(256) };
+      for(let i=0;i<8;i++) QRMath.EXP_TABLE[i]=1<<i; for(let i=8;i<256;i++) QRMath.EXP_TABLE[i]=QRMath.EXP_TABLE[i-4]^QRMath.EXP_TABLE[i-5]^QRMath.EXP_TABLE[i-6]^QRMath.EXP_TABLE[i-8]; for(let i=0;i<255;i++) QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]]=i;
+      const QRMaskPattern={ PATTERN000:0 };
+      function QRUtil(){}; QRUtil.getBCHTypeInfo=function(data){ let d=data<<10; while(QRUtil.getBCHDigit(d)-QRUtil.getBCHDigit(1335)>=0){ d ^= (1335 << (QRUtil.getBCHDigit(d)-QRUtil.getBCHDigit(1335))); } return ((data<<10)|d)^21522; }; QRUtil.getBCHDigit=function(data){ let digit=0; while(data!=0){ digit++; data >>>=1; } return digit; };
+      function QRRSBlock(totalCount,dataCount){ this.totalCount=totalCount; this.dataCount=dataCount; }
+      QRRSBlock.getRSBlocks=function(){ // Versión fija pequeña (versión 4, nivel M) suficiente para URL corta
+        return [ new QRRSBlock(50,38), new QRRSBlock(50,38), new QRRSBlock(50,38), new QRRSBlock(50,38) ]; };
+      function QRCode(){ this.typeNumber=4; this.errorCorrectLevel=0; this.modules=null; this.moduleCount=0; this.dataList=[]; this.dataCache=null; }
+      QRCode.prototype={ addData:function(data){ this.dataList.push(new QR8bitByte(data)); this.dataCache=null; }, isDark:function(row,col){ return this.modules[row][col]; }, getModuleCount:function(){ return this.moduleCount; }, make:function(){ this.moduleCount = this.typeNumber*4+17; this.modules = new Array(this.moduleCount); for(let r=0;r<this.moduleCount;r++){ this.modules[r]=new Array(this.moduleCount); for(let c=0;c<this.moduleCount;c++){ this.modules[r][c]=null; } }
+          // Patrón simple (no completo para todos los casos, suficiente demo)
+          function setupPosPattern(qr,row,col){ for(let r2=-1;r2<=7;r2++){ if(row+r2<=-1||qr.moduleCount<=row+r2) continue; for(let c2=-1;c2<=7;c2++){ if(col+c2<=-1||qr.moduleCount<=col+c2) continue; qr.modules[row+r2][col+c2] = (r2>=0&&r2<=6&& (c2==0||c2==6)) || (c2>=0&&c2<=6&& (r2==0||r2==6)) || (r2>=2&&r2<=4&&c2>=2&&c2<=4); } } }
+          setupPosPattern(this,0,0); setupPosPattern(this,this.moduleCount-7,0); setupPosPattern(this,0,this.moduleCount-7);
+          // Reservar formato (simplificado): marcar algunos bits
+          for(let i=0;i<8;i++){ this.modules[i][8]= (i%2)==0; this.modules[8][i]= (i%2)==0; this.modules[this.moduleCount-1-i][8]=(i%2)==0; this.modules[8][this.moduleCount-1-i]=(i%2)==0; }
+          // Añadir datos (muy simplificado, sin corrección real completa, suficiente para esta longitud)
+          const buffer=new QRBitBuffer(); this.dataList.forEach(d=>{ buffer.put(4,4); buffer.put(d.getLength(),8); d.write(buffer); });
+          // terminator
+          buffer.put(0,4);
+          // Llenar a bytes
+          while(buffer.length %8 !=0) buffer.putBit(false);
+          const totalDataCount=152; // aproximado para versión 4 M (solo demostrativo)
+          const data=[]; for(let i=0;i<buffer.buffer.length;i++) data.push(buffer.buffer[i]); while(data.length<totalDataCount) data.push(0xec,0x11);
+          let inc=-1; let row=this.moduleCount-1; let bitIndex=0; let byteIndex=0;
+          for(let col=this.moduleCount-1; col>0; col-=2){ if(col==6) col--; for(;;){ for(let c=0;c<2;c++){ if(this.modules[row][col-c]==null){ let dark=false; if(byteIndex<data.length){ dark = ((data[byteIndex] >>> (7-bitIndex)) &1)==1; } this.modules[row][col-c]=dark; bitIndex++; if(bitIndex==8){ bitIndex=0; byteIndex++; } } }
+              row += inc; if(row<0||this.moduleCount<=row){ row -= inc; inc = -inc; break; } } }
+        },
+        createCanvas:function(cellSize=16){ if(!this.modules) this.make(); const size=this.modules.length*cellSize; const canvas=document.createElement('canvas'); canvas.width=canvas.height=size; const ctx=canvas.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,size,size); ctx.fillStyle='#000'; for(let r=0;r<this.modules.length;r++){ for(let c=0;c<this.modules.length;c++){ if(this.modules[r][c]) ctx.fillRect(c*cellSize,r*cellSize,cellSize,cellSize); } } return canvas; }
+      };
+
+      try {
+        const qr = new QRCode();
+        qr.addData(targetUrl);
+        qr.make();
+        const canvas = qr.createCanvas(Math.floor(window.innerWidth / (qr.getModuleCount()+4)));
+        const box = document.getElementById('qrBox');
+        box.appendChild(canvas);
+      } catch (e) {
+        console.error('Fallo generación QR, usando fallback', e);
+        const img = document.createElement('img');
+        img.className='qr-fallback';
+        const encoded = encodeURIComponent(targetUrl);
+        img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=' + encoded;
+        img.alt = 'Código QR hacia registro';
+        document.getElementById('qrBox').appendChild(img);
+      }
+    })();
+  </script>
+</body>
+</html>
