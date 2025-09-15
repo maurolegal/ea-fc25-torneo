@@ -500,13 +500,54 @@
             return e ? e.logo : 'https://i.ibb.co/xtkw0mB7/background-de-fc-25.jpg';
         }
 
-        function poblarSelectEquipos() {
+        // --- Conteo de equipos desde Supabase ---
+        let conteoEquipos = {}; // { team_name: count }
+
+        async function verificarEquiposEnTeamCounts() {
+            try {
+                const { data: teamCounts, error } = await supabase.from('team_counts').select('*');
+                if (error) throw error;
+                const existentes = new Set(teamCounts?.map(t => t.team_name) || []);
+                const faltantes = equiposChampions.filter(e => !existentes.has(e.nombre));
+                if (faltantes.length) {
+                    const payload = faltantes.map(e => ({ team_name: e.nombre, count: 0 }));
+                    const { error: insErr } = await supabase.from('team_counts').insert(payload);
+                    if (insErr) throw insErr;
+                }
+            } catch (e) {
+                console.error('verificarEquiposEnTeamCounts:', e);
+            }
+        }
+
+        async function cargarConteosEquipos() {
+            try {
+                const { data: teamCounts, error } = await supabase.from('team_counts').select('*');
+                if (error) throw error;
+                conteoEquipos = {};
+                (teamCounts || []).forEach(t => conteoEquipos[t.team_name] = t.count);
+                // Asegurar todos con 0
+                equiposChampions.forEach(e => { if (conteoEquipos[e.nombre] == null) conteoEquipos[e.nombre] = 0; });
+            } catch (e) {
+                console.error('cargarConteosEquipos:', e);
+            }
+        }
+
+        function totalInscritos() { return Object.values(conteoEquipos).reduce((a,b)=>a+(b||0),0); }
+
+        function poblarSelectEquiposDisponibles() {
             const sel = document.getElementById('qr-equipo');
             if (!sel) return;
             sel.innerHTML = '<option value="">Selecciona tu equipo</option>';
+            const total = totalInscritos();
             equiposChampions.forEach(e => {
-                const opt = document.createElement('option');
-                opt.value = e.nombre; opt.textContent = e.nombre; sel.appendChild(opt);
+                const count = conteoEquipos[e.nombre] || 0;
+                const disponible = total < 32 && count < 5;
+                if (disponible) {
+                    const opt = document.createElement('option');
+                    opt.value = e.nombre;
+                    opt.textContent = `${e.nombre} (${5 - count} cupos)`;
+                    sel.appendChild(opt);
+                }
             });
         }
 
@@ -693,7 +734,9 @@
 
         // Inicializar la página
         document.addEventListener('DOMContentLoaded', async function() {
-            poblarSelectEquipos();
+            await verificarEquiposEnTeamCounts();
+            await cargarConteosEquipos();
+            poblarSelectEquiposDisponibles();
 
             // Validación simple de teléfono
             const tel = document.getElementById('qr-telefono');
@@ -723,6 +766,11 @@
                     const telefono = document.getElementById('qr-telefono').value.trim();
                     const equipo = document.getElementById('qr-equipo').value;
                     if (!nombre || !telefono || !equipo) { if (msg) msg.textContent = 'Completa todos los campos.'; return; }
+                    // Validar cupos (32 total y 5 por equipo)
+                    const total = totalInscritos();
+                    const countEquipo = conteoEquipos[equipo] || 0;
+                    if (total >= 32) { if (msg) msg.textContent = 'El torneo ya alcanzó 32 participantes.'; return; }
+                    if (countEquipo >= 5) { if (msg) msg.textContent = 'Este equipo ya tiene 5 jugadores. Elige otro.'; poblarSelectEquiposDisponibles(); return; }
                     const btn = form.querySelector('button[type="submit"]');
                     if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
                     try {
@@ -730,8 +778,17 @@
                             .from('registrations')
                             .insert([{ nombre, telefono, equipo }]);
                         if (error) throw error;
+                        // Actualizar conteo del equipo
+                        const nuevo = (conteoEquipos[equipo] || 0) + 1;
+                        const { error: upErr } = await supabase
+                            .from('team_counts')
+                            .update({ count: nuevo })
+                            .eq('team_name', equipo);
+                        if (upErr) throw upErr;
+                        conteoEquipos[equipo] = nuevo;
                         if (msg) msg.textContent = 'Registro exitoso. ¡Te agregamos al bracket!';
                         form.reset();
+                        poblarSelectEquiposDisponibles();
                     } catch (err) {
                         console.error(err);
                         if (msg) msg.textContent = err.message || 'Error al registrar. Intenta nuevamente.';
@@ -742,10 +799,13 @@
             }
 
             // Suscripción en tiempo real
-            supabase.channel('registrations-changes')
+        supabase.channel('registrations-changes')
                 .on('postgres_changes', { event: '*', schema: 'public', table: 'registrations' }, async () => {
                     participantesGlobal = await cargarParticipantes();
                     renderParticipantsList(participantesGlobal);
                     generarBracket(participantesGlobal);
+            // Refrescar conteos y selector
+            await cargarConteosEquipos();
+            poblarSelectEquiposDisponibles();
                 })
                 .subscribe();
